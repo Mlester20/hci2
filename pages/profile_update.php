@@ -40,7 +40,7 @@ if ($new <> $password) {
 		mysqli_query($con, $update_query) or die(mysqli_error($con));
 
 		echo "<script type='text/javascript'>alert('Successfully updated profile details!');</script>";
-		echo "<script>document.location='profile.php'</script>";
+		echo "<script>document.location='home.php'</script>";
 	} else {
 		echo "<script type='text/javascript'>alert('Old Password is incorrect!');</script>";
 		echo "<script>document.location='profile.php'</script>";

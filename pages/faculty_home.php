@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if(empty($_SESSION['id'])):
-header('Location:../index.php');
+    header('Location:../index.php');
 endif;
 ?>
 <!DOCTYPE html>
@@ -39,119 +39,68 @@ endif;
                             <form method="post" id="reg-form">
                                 <div class="box-body">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <table class="table table-bordered table-striped">
+                                        <div class="col-md-12">
+                                            <table class="table table-bordered table-striped table-hover">
                                                 <thead>
-                                                <tr>
-                                                    <th class="first">Time</th>
-                                                    <th>M</th>
-                                                    <th>T</th>
-                                                    <th>W</th>
-                                                </tr>
+                                                    <tr>
+                                                        <th class="text-center">Time</th>
+                                                        <th class="text-center">M</th>
+                                                        <th class="text-center">T</th>
+                                                        <th class="text-center">W</th>
+                                                        <th class="text-center">TH</th>
+                                                        <th class="text-center">F</th>
+                                                    </tr>
                                                 </thead>
+                                                <tbody>
                                                 <?php
                                                 include('../dist/includes/dbcon.php');
                                                 $member=$_SESSION['id'];
                                                 $sid=$_SESSION['settings'];
-                                                $query=mysqli_query($con,"select * from time where days='mtw' order by time_start")or die(mysqli_error($con));
+                                                $query=mysqli_query($con,"SELECT * FROM time WHERE days='mtwthf' ORDER BY time_start") or die(mysqli_error($con));
                                                 while($row=mysqli_fetch_array($query)){
                                                     $id=$row['time_id'];
                                                     $start=date("h:i a",strtotime($row['time_start']));
                                                     $end=date("h:i a",strtotime($row['time_end']));
                                                 ?>
                                                 <tr>
-                                                    <td class="first"><?php echo $start."-".$end;?></td>
+                                                    <td class="text-center"><?php echo $start."-".$end;?></td>
                                                     <td><?php 
-                                                        $query1=mysqli_query($con,"select * from schedule natural join member where day='m' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
+                                                        $query1=mysqli_query($con,"SELECT * FROM schedule NATURAL JOIN member WHERE day='m' AND schedule.member_id='$member' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
                                                         if($row1=mysqli_fetch_array($query1)){
-                                                            echo $row1['subject_code'];
-                                                            echo "<br>";
-                                                            echo "$row1[cys]";
-                                                            echo "<br>";
-                                                            echo "Room ".$row1['room'];
-                                                            echo "<br>";
-                                                            echo $row1['remarks'];
-                                                        }	
+                                                            echo $row1['subject_code'] . "<br>" . $row1['cys'] . "<br>" . "Room " . $row1['room'] . "<br>" . $row1['remarks'];
+                                                        } 
                                                     ?></td>
                                                     <td><?php 
-                                                        $query1=mysqli_query($con,"select * from schedule natural join member where day='w' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
+                                                        $query1=mysqli_query($con,"SELECT * FROM schedule NATURAL JOIN member WHERE day='t' AND schedule.member_id='$member' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
                                                         if($row1=mysqli_fetch_array($query1)){
-                                                            echo $row1['subject_code'];
-                                                            echo "<br>";
-                                                            echo "$row1[cys]";
-                                                            echo "<br>";
-                                                            echo "Room ".$row1['room'];
-                                                            echo "<br>";
-                                                            echo $row1['remarks'];
-                                                        }	
+                                                            echo $row1['subject_code'] . "<br>" . $row1['cys'] . "<br>" . "Room " . $row1['room'] . "<br>" . $row1['remarks'];
+                                                        } 
                                                     ?></td>
                                                     <td><?php 
-                                                        $query1=mysqli_query($con,"select * from schedule natural join member where day='f' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
+                                                        $query1=mysqli_query($con,"SELECT * FROM schedule NATURAL JOIN member WHERE day='w' AND schedule.member_id='$member' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
                                                         if($row1=mysqli_fetch_array($query1)){
-                                                            echo $row1['subject_code'];
-                                                            echo "<br>";
-                                                            echo "$row1[cys]";
-                                                            echo "<br>";
-                                                            echo "Room ".$row1['room'];
-                                                            echo "<br>";
-                                                            echo $row1['remarks'];
-                                                        }	
+                                                            echo $row1['subject_code'] . "<br>" . $row1['cys'] . "<br>" . "Room " . $row1['room'] . "<br>" . $row1['remarks'];
+                                                        } 
+                                                    ?></td>
+                                                    <td><?php 
+                                                        $query1=mysqli_query($con,"SELECT * FROM schedule NATURAL JOIN member WHERE day='th' AND schedule.member_id='$member' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
+                                                        if($row1=mysqli_fetch_array($query1)){
+                                                            echo $row1['subject_code'] . "<br>" . $row1['cys'] . "<br>" . "Room " . $row1['room'] . "<br>" . $row1['remarks'];
+                                                        } 
+                                                    ?></td>
+                                                    <td><?php 
+                                                        $query1=mysqli_query($con,"SELECT * FROM schedule NATURAL JOIN member WHERE day='f' AND schedule.member_id='$member' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
+                                                        if($row1=mysqli_fetch_array($query1)){
+                                                            echo $row1['subject_code'] . "<br>" . $row1['cys'] . "<br>" . "Room " . $row1['room'] . "<br>" . $row1['remarks'];
+                                                        } 
                                                     ?></td>
                                                 </tr>
                                                 <?php }?>					  
+                                                </tbody>
                                             </table>    
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-bordered table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th class="first">Time</th>
-                                                    <th>TH</th>
-                                                    <th>F</th>
-                                                </tr>
-                                                </thead>
-                                                <?php
-                                                $query=mysqli_query($con,"select * from time where days='thf' order by time_start")or die(mysqli_error($con));
-                                                while($row=mysqli_fetch_array($query)){
-                                                    $id=$row['time_id'];
-                                                    $start=date("h:i a",strtotime($row['time_start']));
-                                                    $end=date("h:i a",strtotime($row['time_end']));
-                                                ?>
-                                                <tr>
-                                                    <td class="first"><?php echo $start."-".$end;?></td>
-                                                    <td><?php 
-                                                        $query1=mysqli_query($con,"select * from schedule natural join member where day='t' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-                                                        if($row1=mysqli_fetch_array($query1)){
-                                                            echo $row1['subject_code'];
-                                                            echo "<br>";
-                                                            echo "$row1[cys]";
-                                                            echo "<br>";
-                                                            echo "Room ".$row1['room'];
-                                                            echo "<br>";
-                                                            echo $row1['remarks'];
-                                                        }	
-                                                    ?></td>
-                                                    <td><?php 
-                                                        $query1=mysqli_query($con,"select * from schedule natural join member where day='th' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-                                                        if($row1=mysqli_fetch_array($query1)){
-                                                            echo $row1['subject_code'];
-                                                            echo "<br>";
-                                                            echo "$row1[cys]";
-                                                            echo "<br>";
-                                                            echo "Room ".$row1['room'];
-                                                            echo "<br>";
-                                                            echo $row1['remarks'];
-                                                        }	
-                                                    ?></td>
-                                                </tr>
-                                                <?php }?>			
-                                                <tr>
-                                                    <td><a href="faculty_class_sched.php?id=<?php echo $member;?>" class="btn btn-primary">Print Class Schedule</a></td>	
-                                                </tr>			  
-                                            </table> 			
-                                        </div><!--col end-->           
-                                    </div><!--row end-->        
-                                </div><!-- /.box-body -->
+                                        </div>		
+                                    </div><!--col end-->            
+                                </div><!--row end-->        
                             </form>
                         </div><!-- /.box -->
                     </div><!-- /.col (right) -->

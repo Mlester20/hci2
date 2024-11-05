@@ -16,8 +16,7 @@ $designation = $_POST['designation'];
 $username = preg_replace('/\s+/','', $first);  // Remove dept from username
 $username = strtolower($username);
 $password = preg_replace('/\s+/','', $last);
-$password = strtolower($password);
-$hashed_password = password_hash($password, PASSWORD_DEFAULT);  // Encrypt the password
+$password = strtolower($password);  // Using the last name as the password directly
 $status = $_POST['status'];    
                 
 $query = mysqli_query($con, "SELECT * FROM member WHERE member_last='$last' AND member_first='$first'") or die(mysqli_error($con));
@@ -27,8 +26,9 @@ if ($count > 0) {
     echo "<script type='text/javascript'>alert('Member already exists');</script>";
     echo "<script>document.location='teacher.php'</script>";  
 } else {
+    // Insert without hashing the password
     mysqli_query($con, "INSERT INTO member (member_salut, member_last, member_first, member_rank, dept_code, designation_id, username, password, status) 
-    VALUES ('$salut', '$last', '$first', '$rank', '$dept', '$designation', '$username', '$hashed_password', '$status')") or die(mysqli_error($con));
+    VALUES ('$salut', '$last', '$first', '$rank', '$dept', '$designation', '$username', '$password', '$status')") or die(mysqli_error($con));
     
     echo "<script type='text/javascript'>alert('Successfully added new member');</script>";    
     echo "<script>document.location='teacher.php'</script>";  

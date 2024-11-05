@@ -5,13 +5,14 @@
 								<th>M</th>
 								<th>T</th>
 								<th>W</th>
-								
+								<th>TH</th>
+								<th>F</th>
 							  </tr>
 							</thead>
 							
 		<?php
 				
-		$query=mysqli_query($con,"select * from time where days='mtw' order by time_start")or die(mysqli_error($con));
+		$query=mysqli_query($con,"select * from time where days='mtwthf' order by time_start")or die(mysqli_error($con));
 					
 			while($row=mysqli_fetch_array($query)){
 				$id=$row['time_id'];
@@ -184,7 +185,7 @@
 		<?php }?>					  
 		</table>    
 
-			<table style="width:45%;float:right">
+			<!-- <table style="width:45%;float:right">
 								<thead>
 								  <tr>
 									<th class="first">Time</th>
@@ -317,4 +318,4 @@
 							  </tr>
 								
 			<?php }?>					  
-			</table> 
+			</table>  -->

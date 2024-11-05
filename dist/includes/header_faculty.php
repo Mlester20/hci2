@@ -26,13 +26,14 @@
                     </a>
                   </li>
                  
-				  <li class="">
-                    <!-- Menu Toggle Button -->
-                    <a href="profile.php" class="dropdown-toggle">
-                      <i class="glyphicon glyphicon-user text-orange"></i>
-                      <?php echo $_SESSION['name'];?>
-                    </a>
+				          <li class="">
+                      <!-- Menu Toggle Button -->
+                      <a href="profile.php?showModal=true" class="dropdown-toggle">
+                          <i class="glyphicon glyphicon-user text-orange"></i>
+                          <?php echo $_SESSION['name']; ?>
+                      </a>
                   </li>
+
                   <li class="">
                     <!-- Menu Toggle Button -->
                     <a href="logout.php" class="dropdown-toggle">

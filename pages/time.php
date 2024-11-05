@@ -117,8 +117,8 @@ error_reporting(0);
 						  <div class="form-group">
 							<label for="date">Day/s</label><br>
 								<select class="form-control select2" name="day" required>
-									<option value="mtw">MTW Class</option>
-									<option value="thf">THF Class</option>
+									<option value="mtwthf">M,T,W,TH,F Class</option>
+									<!-- <option value="thf">THF Class</option> -->
 									<option value="fst">Exam Sched</option>
 								</select>
 						  </div><!-- /.form group -->
