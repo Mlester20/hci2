@@ -6,7 +6,8 @@ error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Designation | <?php include('../dist/includes/title.php');?></title>
@@ -21,147 +22,162 @@ error_reporting(0);
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-	<script src="../dist/js/jquery.min.js"></script>
-	
- </head>
-  <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-green layout-top-nav" onload="myFunction()">
-    <div class="wrapper">
-      <?php include('../dist/includes/header.php');?>
-      <!-- Full Width Column -->
-      <div class="content-wrapper">
-        <div class="container">
-          <!-- Content Header (Page header) -->
-        
+    <script src="../dist/js/jquery.min.js"></script>
 
-          <!-- Main content -->
-          <section class="content">
-            <div class="row">
-	      <div class="col-md-9">
-              <div class="box box-warning">
-               
-                <div class="box-body">
-				<div class="row">
-					<div class="col-md-12">
-						<table id="example1" class="table table-bordered table-striped" style="margin-right:-10px">
-              <thead>
-                <tr>
-                <th>Designation</th>
-                <th>Action</th>
-                
-                
-                </tr>
-              </thead>
-              
-    <?php
+</head>
+<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+
+<body class="hold-transition skin-green layout-top-nav" onload="myFunction()">
+    <div class="wrapper">
+        <?php include('../dist/includes/header.php');?>
+        <!-- Full Width Column -->
+        <div class="content-wrapper">
+            <div class="container">
+                <!-- Content Header (Page header) -->
+
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box box-warning">
+
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table id="example1" class="table table-bordered table-striped"
+                                                style="margin-right:-10px">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Designation</th>
+                                                        <th>Action</th>
+
+
+                                                    </tr>
+                                                </thead>
+
+                                                <?php
         include('../dist/includes/dbcon.php');
-        $query=mysqli_query($con,"select * from designation order by designation_name")or die(mysqli_error());
+        $query=mysqli_query($con,"select * from designation order by designation_name")or die(mysqli_error($con));
           
           while($row=mysqli_fetch_array($query)){
             $id=$row['designation_id'];
             $designation=$row['designation_name'];
     ?>
-                <tr>
-                <td><?php echo $designation;?></td>
-                 
-                <td><a id="click" href="designation.php?id=<?php echo $id;?>&designation=<?php echo $designation;?>">
-                <i class="glyphicon glyphicon-edit text-blue"></i></a>
-                <a id="removeme" href="designation_del.php?id=<?php echo $id;?>">
-                <i class="glyphicon glyphicon-remove text-red"></i></a>
-                </td>
-        
-                </tr>
+                                                <tr>
+                                                    <td><?php echo $designation;?></td>
 
-              
-<?php }?>           
-</table>  
-							  
-		</div><!--col end -->
-		<div class="col-md-6">
-			
-						
-         </div><!--col end-->           
-        </div><!--row end-->        
-					
-			
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col (right) -->
-            
-            <div class="col-md-3">
-              <div class="box box-warning">
-                <div class="box-body">
-                  <!-- Date range -->
-                  <div id="form">
-					
-				  <div class="row">
-					 <div class="col-md-12">
-						  <form method="post" action="designation_save.php">
-						  <div class="form-group">
-							<label for="date">Add Designation</label><br>
-								<input type="text" class="form-control" name="designation" placeholder="Designation" required>
-								
-						  </div><!-- /.form group -->
-					</div>
-				  </div>	
-               
-                  
-                  <div class="form-group">
-                    
-                      <button class="btn btn-lg btn-primary" id="daterange-btn" name="save" type="submit">
-                        Save
-                      </button>
-					  <button class="btn btn-lg " id="daterange-btn" type="reset">
-                       Cancel
-                      </button>
-					  
-					  
-                   </div>
-                  </div><!-- /.form group -->
-				</form>	
-				<div id="form">
-					
-				  <div class="row">
-					 <div class="col-md-12">
-						  <form method="post" action="designation_update.php">
-						  <div class="form-group">
-							<label for="date">Update Designation</label><br>
-								<input type="hidden" class="form-control" id="id" name="id" value="<?php echo $_REQUEST['id'];?>" readonly>
-								<input type="text" class="form-control" id="class" name="designation" value="<?php echo $_REQUEST['designation'];?>" placeholder="Designation" required>
-						  </div><!-- /.form group -->
-					</div>
-				  </div>	
-               
-                  
-                  <div class="form-group">
-                    
-                      <button class="btn btn-lg btn-primary" id="daterange-btn" name="save" type="submit">
-                        Update
-                      </button>
-					  
-					  </form>
-					  
-                   </div>
-                  </div><!-- /.form group --><hr>
-                				
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col (right) -->
-			
-			
-          </div><!-- /.row -->
-	  
-            
-          </section><!-- /.content -->
-        </div><!-- /.container -->
-      </div><!-- /.content-wrapper -->
-      <?php include('../dist/includes/footer.php');?>
+                                                    <td><a id="click"
+                                                            href="designation.php?id=<?php echo $id;?>&designation=<?php echo $designation;?>">
+                                                            <i class="glyphicon glyphicon-edit text-blue"></i></a>
+                                                        <a id="removeme"
+                                                            href="designation_del.php?id=<?php echo $id;?>">
+                                                            <i class="glyphicon glyphicon-remove text-red"></i></a>
+                                                    </td>
+
+                                                </tr>
+
+
+                                                <?php }?>
+                                            </table>
+
+                                        </div>
+                                        <!--col end -->
+                                        <div class="col-md-6">
+
+
+                                        </div>
+                                        <!--col end-->
+                                    </div>
+                                    <!--row end-->
+
+
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div><!-- /.col (right) -->
+
+                        <div class="col-md-3">
+                            <div class="box box-warning">
+                                <div class="box-body">
+                                    <!-- Date range -->
+                                    <div id="form">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form method="post" action="designation_save.php">
+                                                    <div class="form-group">
+                                                        <label for="date">Add Designation</label><br>
+                                                        <input type="text" class="form-control" name="designation"
+                                                            placeholder="Designation" required>
+
+                                                    </div><!-- /.form group -->
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <button class="btn btn-lg btn-primary" id="daterange-btn" name="save"
+                                                type="submit">
+                                                Save
+                                            </button>
+                                            <button class="btn btn-lg " id="daterange-btn" type="reset">
+                                                Cancel
+                                            </button>
+
+
+                                        </div>
+                                    </div><!-- /.form group -->
+                                    </form>
+                                    <div id="form">
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <form method="post" action="designation_update.php">
+                                                    <div class="form-group">
+                                                        <label for="date">Update Designation</label><br>
+                                                        <input type="hidden" class="form-control" id="id" name="id"
+                                                            value="<?php echo $_REQUEST['id'];?>" readonly>
+                                                        <input type="text" class="form-control" id="class"
+                                                            name="designation"
+                                                            value="<?php echo $_REQUEST['designation'];?>"
+                                                            placeholder="Designation" required>
+                                                    </div><!-- /.form group -->
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+
+                                            <button class="btn btn-lg btn-primary" id="daterange-btn" name="save"
+                                                type="submit">
+                                                Update
+                                            </button>
+
+                                            </form>
+
+                                        </div>
+                                    </div><!-- /.form group -->
+                                    <hr>
+
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div><!-- /.col (right) -->
+
+
+                    </div><!-- /.row -->
+
+
+                </section><!-- /.content -->
+            </div><!-- /.container -->
+        </div><!-- /.content-wrapper -->
+        <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
-	
-	<script type="text/javascript" src="autosum.js"></script>
+
+    <script type="text/javascript" src="autosum.js"></script>
     <!-- jQuery 2.1.4 -->
     <script src="../plugins/jQuery/jQuery-2.1.4.min.js"></script>
-	<script src="../dist/js/jquery.min.js"></script>
+    <script src="../dist/js/jquery.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../bootstrap/js/bootstrap.min.js"></script>
     <script src="../plugins/select2/select2.full.min.js"></script>
@@ -175,69 +191,78 @@ error_reporting(0);
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-    
+
     <script>
-      $(function () {
+    $(function() {
         $("#example1").DataTable();
         $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
         });
-      });
+    });
     </script>
-     <script>
-      $(function () {
+    <script>
+    $(function() {
         //Initialize Select2 Elements
         $(".select2").select2();
 
         //Datemask dd/mm/yyyy
-        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        $("#datemask").inputmask("dd/mm/yyyy", {
+            "placeholder": "dd/mm/yyyy"
+        });
         //Datemask2 mm/dd/yyyy
-        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        $("#datemask2").inputmask("mm/dd/yyyy", {
+            "placeholder": "mm/dd/yyyy"
+        });
         //Money Euro
         $("[data-mask]").inputmask();
 
         //Date range picker
         $('#reservation').daterangepicker();
         //Date range picker with time picker
-        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+        $('#reservationtime').daterangepicker({
+            timePicker: true,
+            timePickerIncrement: 30,
+            format: 'MM/DD/YYYY h:mm A'
+        });
         //Date range as a button
-        $('#daterange-btn').daterangepicker(
-            {
-              ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              },
-              startDate: moment().subtract(29, 'days'),
-              endDate: moment()
+        $('#daterange-btn').daterangepicker({
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1,
+                        'month').endOf('month')]
+                },
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment()
             },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
+            function(start, end) {
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format(
+                    'MMMM D, YYYY'));
+            }
         );
 
         //iCheck for checkbox and radio inputs
         $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_minimal-blue',
-          radioClass: 'iradio_minimal-blue'
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
         });
         //Red color scheme for iCheck
         $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-          checkboxClass: 'icheckbox_minimal-red',
-          radioClass: 'iradio_minimal-red'
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass: 'iradio_minimal-red'
         });
         //Flat red color scheme for iCheck
         $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-          checkboxClass: 'icheckbox_flat-green',
-          radioClass: 'iradio_flat-green'
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
         });
 
         //Colorpicker
@@ -247,9 +272,10 @@ error_reporting(0);
 
         //Timepicker
         $(".timepicker").timepicker({
-          showInputs: false
+            showInputs: false
         });
-      });
+    });
     </script>
-  </body>
+</body>
+
 </html>

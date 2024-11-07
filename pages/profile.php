@@ -1,6 +1,6 @@
 <?php session_start();
 if (empty($_SESSION['id'])):
-  header('Location:../index.php');
+    header('Location:../index.php');
 endif;
 ?>
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ endif;
             filter: blur(5px);
             transition: filter 0.3s ease-in-out;
         }
-        
+
         /* Smooth transition */
         body {
             transition: filter 0.3s ease-in-out;
@@ -39,12 +39,12 @@ endif;
             }
 
             // Add blur effect to content-wrapper when modal is shown
-            $('#accountModal').on('show.bs.modal', function () {
+            $('#accountModal').on('show.bs.modal', function() {
                 $('.content-wrapper').addClass('blurred');
             });
 
             // Remove blur effect from content-wrapper when modal is hidden
-            $('#accountModal').on('hidden.bs.modal', function () {
+            $('#accountModal').on('hidden.bs.modal', function() {
                 $('.content-wrapper').removeClass('blurred');
             });
         });
@@ -61,9 +61,9 @@ endif;
             <div class="container">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
+                    <!-- <h1>
                         <a class="btn btn-lg btn-warning" href="home.php">Back</a>
-                    </h1>
+                    </h1> -->
                 </section>
 
                 <?php
@@ -77,11 +77,13 @@ endif;
                     <div class="row">
                         <div class="col-md-12">
                             <!-- Modal -->
-                            <div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="accountModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="accountModal" tabindex="-1" role="dialog"
+                                aria-labelledby="accountModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">&times;</button>
                                             <h4 class="modal-title" id="accountModalLabel">Update Account Details</h4>
                                         </div>
                                         <form method="post" action="profile_update.php">
@@ -89,31 +91,39 @@ endif;
                                                 <!-- Full Name -->
                                                 <div class="form-group">
                                                     <label for="name">Full Name</label>
-                                                    <input type="text" class="form-control" value="<?php echo $row['member_first'] . " " . $row['member_last']; ?>" name="name" placeholder="Full Name" required>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $row['member_first'] . " " . $row['member_last']; ?>"
+                                                        name="name" placeholder="Full Name" required>
                                                 </div>
 
                                                 <!-- Username -->
                                                 <div class="form-group">
                                                     <label for="username">Username</label>
-                                                    <input type="text" class="form-control" value="<?php echo $row['username']; ?>" name="username" placeholder="Username" required>
+                                                    <input type="text" class="form-control"
+                                                        value="<?php echo $row['username']; ?>" name="username"
+                                                        placeholder="Username" required>
                                                 </div>
 
                                                 <!-- Change Password -->
                                                 <div class="form-group">
                                                     <label for="password">Change Password</label>
-                                                    <input type="password" class="form-control" name="password" placeholder="Type new password">
+                                                    <input type="password" class="form-control" name="password"
+                                                        placeholder="Type new password">
                                                 </div>
 
                                                 <!-- Confirm New Password -->
                                                 <div class="form-group">
                                                     <label for="new">Confirm New Password</label>
-                                                    <input type="password" class="form-control" name="new" placeholder="Confirm new password">
+                                                    <input type="password" class="form-control" name="new"
+                                                        placeholder="Confirm new password">
                                                 </div>
 
                                                 <!-- Old Password (to confirm changes) -->
                                                 <div class="form-group">
-                                                    <label for="passwordold">Enter Old Password to Confirm Changes</label>
-                                                    <input type="password" class="form-control" name="passwordold" placeholder="Enter old password" required>
+                                                    <label for="passwordold">Enter Old Password to Confirm
+                                                        Changes</label>
+                                                    <input type="password" class="form-control" name="passwordold"
+                                                        placeholder="Enter old password" required>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

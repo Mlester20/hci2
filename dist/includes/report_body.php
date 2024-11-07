@@ -1,321 +1,104 @@
-<table style="width:55%;float:left">
-							<thead>
-							  <tr>
-								<th class="first">Time</th>
-								<th>M</th>
-								<th>T</th>
-								<th>W</th>
-								<th>TH</th>
-								<th>F</th>
-							  </tr>
-							</thead>
-							
-		<?php
-				
-		$query=mysqli_query($con,"select * from time where days='mtwthf' order by time_start")or die(mysqli_error($con));
-					
-			while($row=mysqli_fetch_array($query)){
-				$id=$row['time_id'];
-				$start=date("h:i a",strtotime($row['time_start']));
-				$end=date("h:i a",strtotime($row['time_end']));
-		?>
-					<tr >
-						<td class="first"><?php echo $start."-".$end;?></td>
-							<td><?php 
-							if ($member<>""){
-								$query1=mysqli_query($con,"select * from schedule natural join member where day='m' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-							}
-							elseif ($room<>""){
-									$query1=mysqli_query($con,"select * from schedule natural join member where day='m' and schedule.room='$room' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-							elseif ($class<>""){
-									$query1=mysqli_query($con,"select * from schedule natural join member where day='m' and schedule.cys='$class' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-										$row1=mysqli_fetch_array($query1);
-										$id1=$row1['sched_id'];
-										$count=mysqli_num_rows($query1);
-										$encode=$row1['encoded_by'];
-										$mid=$_SESSION['id'];
-										if ($row1['remarks']<>" ")
-											$displayrm= "<li>$row1[remarks]</li>";
-										if($mid==$encode)
-										{
-											$options="";
-										}
-										else
-											$options="none";
-										if ($count==0)
-										{
-											//echo "<td></td>";
-										}
-										else
-										{
-											
-											echo "<div class='show'>";	
-											echo "<ul>
-														<li class='options' style='display:$options'>
-															<span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
-																<span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
-														</li>";
+<style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+}
 
-											echo "<li class='showme'>";		
-											echo $row1['subject_code'];
-											echo "</li>";
-											echo "<li class='$displayc'>$row1[cys]</li>";
-											echo "<li class='$displaym'>$row1[member_last], $row1[member_first]</li>";											
-											echo "<li class='$displayr'>Room $row1[room]</li>";
-											echo $displayrm;
-											echo "</ul>";
-										}	
-									?>
-								</td>
-								<td><?php 
-									if ($member<>"")
-								{
-									$query2=mysqli_query($con,"select * from schedule natural join member where day='t' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($room<>"")
-								{
-									$query2=mysqli_query($con,"select * from schedule natural join member where day='t' and schedule.room='$room' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($class<>"")
-								{
-									$query2=mysqli_query($con,"select * from schedule natural join member where day='t' and schedule.cys='$class' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								
-										$row1=mysqli_fetch_array($query2);
-										$count=mysqli_num_rows($query2);
-										$id1=$row1['sched_id'];
-										//$count=mysqli_num_rows($query1);
-										$encode=$row1['encoded_by'];
-										$mid=$_SESSION['id'];
-										if ($row1['remarks']<>"")
-											$displayrm= "<li>$row1[remarks]</li>";
-											
-										
-										if($mid==$encode)
-										{
-											$options="";
-										}
-										else
-											$options="none";
-										if ($count==0)
-										{
-											//echo "<td></td>";
-										}
-										else
-										{
-											
-											echo "<div class='show'>";	
-											echo "<ul>
-														<li class='options' style='display:$options'>
-															<span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
-																<span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
-														</li>";
+th,
+td {
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #ddd;
+}
 
-											echo "<li class='showme'>";		
-											echo $row1['subject_code'];
-											echo "</li>";
-											echo "<li class='$displayc'>$row1[cys]</li>";
-											echo "<li class='$displaym'>$row1[member_last], $row1[member_first]</li>";											
-											echo "<li class='$displayr'>Room ".$row1['room']."</li>";
-											echo $displayrm;
-											echo "</ul>";
-										}	
-									?>
-								</td>
-								<td><?php 
-								if ($member<>"")
-								{
-									$query3=mysqli_query($con,"select * from schedule natural join member where day='w' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($room<>"")
-								{
-									$query3=mysqli_query($con,"select * from schedule natural join member where day='w' and schedule.room='$room' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($class<>"")
-								{
-									$query3=mysqli_query($con,"select * from schedule natural join member where day='w' and schedule.cys='$class' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-										$row1=mysqli_fetch_array($query3);
-										$count=mysqli_num_rows($query3);
-										$id1=$row1['sched_id'];
-										//$count=mysqli_num_rows($query1);
-										$encode=$row1['encoded_by'];
-										$mid=$_SESSION['id'];
-										if ($row1['remarks']<>"")
-											$displayrm= "<li>$row1[remarks]</li>";
-											
-										else
-											$displayrm="";
-										if($mid==$encode)
-										{
-											$options="";
-										}
-										else
-											$options="none";
-										if ($count==0)
-										{
-											//echo "<td></td>";
-										}
-										else
-										{
-											
-											echo "<div class='show'>";	
-											echo "<ul>
-														<li class='options' style='display:$options'>
-															<span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
-																<span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
-														</li>";
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+}
 
-											echo "<li class='showme'>";		
-											echo $row1['subject_code'];
-											echo "</li>";
-											echo "<li class='$displayc'>$row1[cys]</li>";
-											echo "<li class='$displaym'>$row1[member_last], $row1[member_first]</li>";											
-											echo "<li class='$displayr'>Room $row1[room]</li>";
-											echo $displayrm;
-											echo "</ul>";
-										}	
-									?>
-								</td>
-								
-							  </tr>
-							
-		<?php }?>					  
-		</table>    
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
 
-			<!-- <table style="width:45%;float:right">
-								<thead>
-								  <tr>
-									<th class="first">Time</th>
-									<th>TH</th>
-									<th>F</th>
-									
-								  </tr>
-								</thead>
-								
-			<?php
-					
-					$query=mysqli_query($con,"select * from time where days='thf' order by time_start")or die(mysqli_error($con));
-						
-					while($row=mysqli_fetch_array($query)){
-							$id=$row['time_id'];
-							$start=date("h:i a",strtotime($row['time_start']));
-							$end=date("h:i a",strtotime($row['time_end']));
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.first {
+    font-weight: bold;
+    text-align: left;
+}
+</style>
+
+<table style="width:100%;float:left">
+    <thead>
+        <tr>
+            <th class="first">Time</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+    </thead>
+
+    <?php
+	$query = mysqli_query($con, "SELECT * FROM time WHERE days='mtwthf' ORDER BY time_start") or die(mysqli_error($con));
+
+	while ($row = mysqli_fetch_array($query)) {
+		$id = $row['time_id'];
+		$start = date("h:i a", strtotime($row['time_start']));
+		$end = date("h:i a", strtotime($row['time_end']));
+	?>
+    <tr>
+        <td class="first"><?php echo $start . "-" . $end; ?></td>
+        <?php
+			$days = ['m', 't', 'w', 'th', 'f'];
+			foreach ($days as $day) {
+				echo "<td>";
+				$query1 = null;
+
+				if ($member != "") {
+					$query1 = mysqli_query($con, "SELECT * FROM schedule NATURAL JOIN member WHERE day='$day' AND schedule.member_id='$member' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
+				} elseif ($room != "") {
+					$query1 = mysqli_query($con, "SELECT * FROM schedule NATURAL JOIN member WHERE day='$day' AND schedule.room='$room' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
+				} elseif ($class != "") {
+					$query1 = mysqli_query($con, "SELECT * FROM schedule NATURAL JOIN member WHERE day='$day' AND schedule.cys='$class' AND time_id='$id' AND settings_id='$sid'") or die(mysqli_error($con));
+				}
+
+				if ($query1) {
+					$row1 = mysqli_fetch_array($query1);
+					$count = mysqli_num_rows($query1);
+
+					if ($count > 0) {
+						$id1 = $row1['sched_id'];
+						$encode = $row1['encoded_by'];
+						$mid = $_SESSION['id'];
+						$remarks = !empty($row1['remarks']) ? "<li>$row1[remarks]</li>" : "";
+						$options = $mid == $encode ? "" : "none";
+
+						echo "<div class='show'>";
+						echo "<ul>
+                                <li class='options' style='display:$options'>
+                                    <span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
+                                    <span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
+                                </li>";
+
+						echo "<li class='showme'>{$row1['subject_code']}</li>";
+						echo "<li class='$displayc'>{$row1['cys']}</li>";
+						echo "<li class='$displaym'>{$row1['member_last']}, {$row1['member_first']}</li>";
+						echo "<li class='$displayr'>Room {$row1['room']}</li>";
+						echo $remarks;
+						echo "</ul></div>";
+					}
+				}
+				echo "</td>";
+			}
 			?>
-								  <tr >
-								<td class="first"><?php echo $start."-".$end;?></td>
-								<td class="sec">
-								<?php 
-								if ($member<>"")
-								{
-									$query1=mysqli_query($con,"select * from schedule natural join member where day='th' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($room<>"")
-								{
-									$query1=mysqli_query($con,"select * from schedule natural join member where day='th' and schedule.room='$room' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($class<>"")
-								{
-									$query1=mysqli_query($con,"select * from schedule natural join member where day='th' and schedule.cys='$class' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-										$row1=mysqli_fetch_array($query1);
-										$count=mysqli_num_rows($query1);
-										$id1=$row1['sched_id'];
-										
-										$encode=$row1['encoded_by'];
-										$mid=$_SESSION['id'];
-										if ($row1['remarks']<>"")
-											$displayrm= "<li>$row1[remarks]</li>";
-											
-										if($mid==$encode)
-										{
-											$options="";
-										}
-										else
-											$options="none";
-										if ($count==0)
-										{
-											//echo "<td></td>";
-										}
-										else
-										{
-											
-											echo "<div class='show'>";	
-											echo "<ul>
-														<li class='options' style='display:$options'>
-															<span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
-																<span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
-														</li>";
-
-											echo "<li class='showme'>";		
-											echo $row1['subject_code'];
-											echo "</li>";
-											echo "<li class='$displayc'>$row1[cys]</li>";
-											echo "<li class='$displaym'>$row1[member_last], $row1[member_first]</li>";											
-											echo "<li class='$displayr'>Room ".$row1['room']."</li>";
-											echo $displayrm;
-											echo "</ul>";
-										}	
-									?>
-								</td>
-								<td class="sec"><?php 
-								if ($member<>"")
-								{
-									$query2=mysqli_query($con,"select * from schedule natural join member where day='f' and schedule.member_id='$member' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($room<>"")
-								{
-									$query2=mysqli_query($con,"select * from schedule natural join member where day='f' and schedule.room='$room' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-								elseif ($class<>"")
-								{
-									$query2=mysqli_query($con,"select * from schedule natural join member where day='f' and schedule.cys='$class' and time_id='$id' and settings_id='$sid'")or die(mysqli_error($con));
-								}
-										$row2=mysqli_fetch_array($query2);
-										$count=mysqli_num_rows($query2);
-										$id1=$row2['sched_id'];
-										//$count=mysqli_num_rows($query1);
-										$encode=$row2['encoded_by'];
-										$mid=$_SESSION['id'];
-										if ($row2['remarks']<>"")
-											$displayrm1= "<li>$row2[remarks]</li>";
-											
-										if($mid==$encode)
-										{
-											$options="";
-										}
-										else
-											$options="none";
-										if ($count==0)
-										{
-											//echo "<td></td>";
-										}
-										else
-										{
-											
-											echo "<div class='show'>";	
-											echo "<ul>
-														<li class='options' style='display:$options'>
-															<span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
-																<span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
-														</li>";
-
-											echo "<li class='showme'>";		
-											echo $row2['subject_code'];
-											echo "</li>";
-											echo "<li class='$displayc'>$row2[cys]</li>";
-											echo "<li class='$displaym'>$row2[member_last], $row2[member_first]</li>";											
-											echo "<li class='$displayr'>Room ".$row2['room']."</li>";
-											echo $displayrm1;
-											echo "</ul>";
-										}	
-									?>
-								</td>
-						
-								
-							  </tr>
-								
-			<?php }?>					  
-			</table>  -->
+    </tr>
+    <?php } ?>
+</table>
