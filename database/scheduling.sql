@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 08:16 AM
+-- Generation Time: Nov 12, 2024 at 06:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,8 @@ INSERT INTO `cys` (`cys_id`, `cys`) VALUES
 (12, 'IT 2A - WEB'),
 (13, 'IT 2B- WEB'),
 (14, 'IT 2C - WEB'),
-(15, 'IT 2A - NS');
+(15, 'IT 2A - NS'),
+(16, 'IT 4B-WEB');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,6 @@ CREATE TABLE `dept` (
 --
 
 INSERT INTO `dept` (`dept_id`, `dept_code`, `dept_name`) VALUES
-(7, 'COED ', 'College of Education'),
 (9, 'Institute ', 'IICT'),
 (10, 'Registrar', 'Registrar');
 
@@ -139,7 +139,9 @@ CREATE TABLE `member` (
 INSERT INTO `member` (`member_id`, `member_last`, `member_first`, `member_rank`, `member_salut`, `dept_code`, `designation_id`, `program_code`, `username`, `password`, `status`) VALUES
 (27, 'Raguindin', 'Mark Lester', 'Assistant Professor I', 'Mr', 'IICT', 5, '', 'admin', 'admin', 'admin'),
 (190, 'Cunanan', 'Janet', 'Professor I', 'Dr', 'Institute ', 67, '', 'janet', 'cunanan', 'user'),
-(191, 'Alzate', 'Ma. Valen', 'Professor II', 'Dean', 'Institute ', 66, '', 'ma.valen', 'alzate', 'user');
+(191, 'Alzate', 'Ma. Valen', 'Professor II', 'Dean', 'Institute ', 66, '', 'ma.valen', 'alzate', 'user'),
+(192, 'Bautista', 'Rosalinda', 'Professor II', 'Campus Administrator', 'Institute ', 69, '', 'rosalinda', 'bautista', 'user'),
+(193, 'Dela Cruz', 'Michelle', 'Professor IV', 'Mrs', 'Registrar', 67, '', 'michelle', 'delacruz', 'user');
 
 -- --------------------------------------------------------
 
@@ -236,7 +238,7 @@ INSERT INTO `room` (`room_id`, `room`) VALUES
 
 CREATE TABLE `salut` (
   `salut_id` int(11) NOT NULL,
-  `salut` varchar(10) NOT NULL
+  `salut` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -250,7 +252,8 @@ INSERT INTO `salut` (`salut_id`, `salut`) VALUES
 (5, 'Dr'),
 (6, 'Prof'),
 (7, 'Engr'),
-(11, 'Dean');
+(11, 'Dean'),
+(13, 'Campus Administrator');
 
 -- --------------------------------------------------------
 
@@ -313,7 +316,9 @@ INSERT INTO `signatories` (`sign_id`, `member_id`, `seq`, `set_by`) VALUES
 (3, 187, 2, 27),
 (4, 188, 4, 27),
 (5, 189, 1, 27),
-(6, 191, 2, 27);
+(6, 191, 2, 27),
+(7, 193, 1, 27),
+(8, 192, 4, 27);
 
 -- --------------------------------------------------------
 
@@ -381,7 +386,9 @@ INSERT INTO `subject` (`subject_id`, `subject_code`, `subject_title`, `member_id
 (51, 'IT 323', 'Capstone Project and Research 1', 27),
 (52, 'IT APPDEV 4', 'Game Development', 27),
 (53, 'IT APPDEV 5', 'Cloud Computing', 27),
-(54, 'IT GE ELEC 5', 'Multicultural Education', 27);
+(54, 'IT GE ELEC 5', 'Multicultural Education', 27),
+(55, 'IT 412', 'Capstone Project and Research 2', 27),
+(56, 'IT ELECT 6', 'Leadership Management', 27);
 
 -- --------------------------------------------------------
 
@@ -421,6 +428,7 @@ CREATE TABLE `time` (
 
 INSERT INTO `time` (`time_id`, `time_start`, `time_end`, `days`) VALUES
 (8, '07:30:00', '10:30:00', 'mtwthf'),
+(23, '07:30:00', '08:30:00', 'mtwthf'),
 (22, '13:00:00', '14:30:00', 'mtwthf'),
 (21, '07:30:00', '09:30:00', 'mtwthf');
 
@@ -555,7 +563,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cys`
 --
 ALTER TABLE `cys`
-  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `dept`
@@ -579,7 +587,7 @@ ALTER TABLE `exam_sched`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -603,13 +611,13 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `salut`
 --
 ALTER TABLE `salut`
-  MODIFY `salut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `salut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -621,13 +629,13 @@ ALTER TABLE `settings`
 -- AUTO_INCREMENT for table `signatories`
 --
 ALTER TABLE `signatories`
-  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `sy`
@@ -639,7 +647,7 @@ ALTER TABLE `sy`
 -- AUTO_INCREMENT for table `time`
 --
 ALTER TABLE `time`
-  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user`

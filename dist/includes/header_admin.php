@@ -1,8 +1,8 @@
 <style>
-.navbar-toggle .fa-bars {
-    color: black !important;
-    /* Make the hamburger icon black */
-}
+    .navbar-toggle .fa-bars {
+        color: black !important;
+        /* Make the hamburger icon black */
+    }
 </style>
 
 <header class="main-header">
@@ -27,10 +27,10 @@
                     </li>
 
                     <!-- Exam Schedule Menu -->
-                    <li>
+                    <!-- <li>
                         <a href="exam.php" style="font-size:14px"><i class="glyphicon glyphicon-list-alt"></i> Exam
                             Schedule</a>
-                    </li>
+                    </li> -->
 
                     <!-- Entry Dropdown Menu -->
                     <li class="dropdown">

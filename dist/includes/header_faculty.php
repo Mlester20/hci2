@@ -23,11 +23,11 @@
                         </a>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="faculty_exam1.php" style="color:#fff;">
                             <i class="glyphicon glyphicon-th text-red"></i> Exam Schedule
                         </a>
-                    </li>
+                    </li> -->
 
                     <li>
                         <a href="profile.php?showModal=true" class="dropdown-toggle">

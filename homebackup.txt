@@ -30,7 +30,7 @@ if (empty($_SESSION['id'])) {
                     <div class="row">
                         <!-- Schedule Selection -->
                         <div class="col-md-9">
-                            <div class="box box-warning text-center">
+                            <div class="box box-warning">
                                 <h4 class="card-title">Print Class Schedule
                                     <!-- <a href="#searcht" data-target="#searcht" data-toggle="modal"
                                         class="dropdown-toggle btn btn-primary">
