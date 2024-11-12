@@ -19,6 +19,8 @@ if (empty($_SESSION['id'])) {
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
 </head>
 
 <body class="hold-transition skin-green layout-top-nav">
