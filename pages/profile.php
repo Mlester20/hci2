@@ -129,7 +129,7 @@ endif;
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                                                 <!-- Redirect to home.php when Cancel is clicked -->
-                                                <a href="home.php" class="btn btn-secondary">Cancel</a>
+                                                <a href="faculty_home.php" class="btn btn-secondary">Cancel</a>
                                             </div>
                                         </form>
                                     </div>
