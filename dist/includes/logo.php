@@ -9,5 +9,4 @@
         <h5 align="center">
             Isabela State University</br>
             Roxas, Isabela</br><br><br>
-            CLASS <?php echo strtoupper($rows['term']); ?> EXAM SCHEDULE</br>
         </h5>
