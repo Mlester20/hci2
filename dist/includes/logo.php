@@ -1,5 +1,7 @@
-<?php
-  if($_SESSION() 
+<?php session_start();
+ if (empty($_SESSION['id'])):
+	 header('Location:../index.php');
+ endif; 
 ?>
 
 <img src="../images/isu-logo.png" width="60px" height="60px" class="logo">
