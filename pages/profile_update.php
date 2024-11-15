@@ -18,6 +18,11 @@ $name_parts = explode(" ", $name);
 $first_name = $name_parts[0]; // Assuming first name is the first part
 $last_name = isset($name_parts[1]) ? $name_parts[1] : ''; // Assuming last name is the second part
 
+// Get user status
+$status_query = mysqli_query($con, "SELECT status FROM member WHERE member_id='$id'") or die(mysqli_error($con));
+$status_row = mysqli_fetch_array($status_query);
+$user_status = $status_row['status'];
+
 if ($new <> $password) {
 	echo "<script type='text/javascript'>alert('Password mismatch!');</script>";
 	echo "<script>document.location='profile.php'</script>";
@@ -40,7 +45,13 @@ if ($new <> $password) {
 		mysqli_query($con, $update_query) or die(mysqli_error($con));
 
 		echo "<script type='text/javascript'>alert('Successfully updated profile details!');</script>";
-		echo "<script>document.location='home.php'</script>";
+
+		// Redirect based on user status
+		if ($user_status == 'admin') {
+			echo "<script>document.location='home.php'</script>";
+		} else {
+			echo "<script>document.location='faculty_home.php'</script>";
+		}
 	} else {
 		echo "<script type='text/javascript'>alert('Old Password is incorrect!');</script>";
 		echo "<script>document.location='profile.php'</script>";

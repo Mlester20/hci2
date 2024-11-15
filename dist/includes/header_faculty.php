@@ -37,7 +37,8 @@
                     </li>
 
                     <li>
-                        <a href="logout.php" class="dropdown-toggle" onclick="return("Are you sure you want to logout?")">
+                        <a href="logout.php" class="dropdown-toggle"
+                            onclick="return confirm('Are you sure you want to logout?')">
                             <i class="glyphicon glyphicon-off text-red"></i>
                         </a>
                     </li>

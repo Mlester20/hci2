@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2024 at 06:17 AM
+-- Generation Time: Nov 12, 2024 at 01:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,8 +47,7 @@ INSERT INTO `cys` (`cys_id`, `cys`) VALUES
 (12, 'IT 2A - WEB'),
 (13, 'IT 2B- WEB'),
 (14, 'IT 2C - WEB'),
-(15, 'IT 2A - NS'),
-(16, 'IT 4B-WEB');
+(15, 'IT 2A - NS');
 
 -- --------------------------------------------------------
 
@@ -67,8 +66,7 @@ CREATE TABLE `dept` (
 --
 
 INSERT INTO `dept` (`dept_id`, `dept_code`, `dept_name`) VALUES
-(9, 'Institute ', 'IICT'),
-(10, 'Registrar', 'Registrar');
+(9, 'Institute ', 'IICT');
 
 -- --------------------------------------------------------
 
@@ -137,11 +135,10 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`member_id`, `member_last`, `member_first`, `member_rank`, `member_salut`, `dept_code`, `designation_id`, `program_code`, `username`, `password`, `status`) VALUES
-(27, 'Raguindin', 'Mark Lester', 'Assistant Professor I', 'Mr', 'IICT', 5, '', 'admin', 'admin', 'admin'),
-(190, 'Cunanan', 'Janet', 'Professor I', 'Dr', 'Institute ', 67, '', 'janet', 'cunanan', 'user'),
-(191, 'Alzate', 'Ma. Valen', 'Professor II', 'Dean', 'Institute ', 66, '', 'ma.valen', 'alzate', 'user'),
-(192, 'Bautista', 'Rosalinda', 'Professor II', 'Campus Administrator', 'Institute ', 69, '', 'rosalinda', 'bautista', 'user'),
-(193, 'Dela Cruz', 'Michelle', 'Professor IV', 'Mrs', 'Registrar', 67, '', 'michelle', 'delacruz', 'user');
+(27, '', 'Admin', 'Assistant Professor I', 'Mr', 'CIT', 5, '', 'admin', 'admin', 'admin'),
+(191, 'Baltazar', 'Carlo', 'Instructor III', 'Mr', 'Institute ', 67, '', 'carlo', 'baltazar', 'user'),
+(194, 'Dammay', 'Valen', 'Assistant Professor I', 'Mrs', 'Institute ', 66, '', 'valen', 'dammay', 'user'),
+(193, 'Guillermo', 'jayson', 'Instructor II', 'Mrs', 'Institute ', 67, '', 'jayson', 'guillermo', 'user');
 
 -- --------------------------------------------------------
 
@@ -197,8 +194,7 @@ INSERT INTO `rank` (`rank_id`, `rank`) VALUES
 (16, 'Professor III'),
 (17, 'Professor IV'),
 (18, 'Campus Administrator'),
-(19, 'University Professor '),
-(23, 'Registrar');
+(19, 'University Professor ');
 
 -- --------------------------------------------------------
 
@@ -238,7 +234,7 @@ INSERT INTO `room` (`room_id`, `room`) VALUES
 
 CREATE TABLE `salut` (
   `salut_id` int(11) NOT NULL,
-  `salut` varchar(50) DEFAULT NULL
+  `salut` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -252,8 +248,7 @@ INSERT INTO `salut` (`salut_id`, `salut`) VALUES
 (5, 'Dr'),
 (6, 'Prof'),
 (7, 'Engr'),
-(11, 'Dean'),
-(13, 'Campus Administrator');
+(11, 'Dean');
 
 -- --------------------------------------------------------
 
@@ -274,6 +269,50 @@ CREATE TABLE `schedule` (
   `encoded_by` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`sched_id`, `time_id`, `day`, `member_id`, `subject_code`, `cys`, `room`, `remarks`, `settings_id`, `encoded_by`) VALUES
+(1, 1, 'm', 178, 'SOCSCI', 'BEED 1A', '101', '', 12, '27'),
+(2, 2, 'f', 178, 'SOCSCI', 'BEED 1A', '101', '', 12, '27'),
+(3, 7, 'm', 181, 'IT APPDEV 5', 'IT 3B - WEB', 'CL-A', '', 12, '27'),
+(4, 10, 't', 185, 'IT APPDEV 5', 'IT 3B - WEB', 'D3', '', 12, '27'),
+(5, 12, 't', 183, 'IT 321', 'IT 3B - WEB', 'CL-C', '', 12, '27'),
+(6, 19, 't', 183, 'IT 321', 'IT 3B - WEB', 'CL-A', '', 12, '27'),
+(7, 8, 'th', 182, 'IT APPDEV 4', 'IT 3B - WEB', 'CL-E', '', 12, '27'),
+(8, 12, 'th', 182, 'IT APPDEV 4', 'IT 3B - WEB', 'CL-E', '', 12, '27'),
+(9, 17, 'w', 187, 'IT 322', 'IT 3B - WEB', 'D2', '', 12, '27'),
+(10, 18, 'th', 187, 'IT 322', 'IT 3B - WEB', 'D2', '', 12, '27'),
+(11, 17, 'm', 187, 'IT GE ELEC 5', 'IT - 1A', 'D5', '', 12, '27'),
+(12, 9, 'w', 187, 'IT GE ELEC 5', 'IT - 1A', 'D5', '', 12, '27'),
+(13, 18, 't', 187, 'IT GE ELEC 5', 'IT - 1A', 'D5', '', 12, '27'),
+(14, 16, 't', 187, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(15, 16, 'th', 187, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(16, 15, 'w', 184, 'IT 323', 'IT 3B - WEB', 'CL-A', '', 12, '27'),
+(17, 20, 't', 184, 'IT 323', 'IT 3B - WEB', 'CL-A', '', 12, '27'),
+(18, 21, 'm', 190, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(19, 21, 'w', 190, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(20, 21, 'm', 191, 'IT 112', 'IT - 1B', 'CL-B', '', 12, '27'),
+(21, 21, 'w', 191, 'IT 112', 'IT - 1B', 'CL-B', '', 12, '27'),
+(22, 23, 'm', 191, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(23, 23, 'w', 191, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(24, 23, 't', 192, 'GE ELECT IT 1', 'IT 4B - NS', 'CL-D', '', 12, '27'),
+(25, 23, 'f', 192, 'GE ELECT IT 1', 'IT 4B - NS', 'CL-D', '', 12, '27'),
+(26, 24, 'm', 192, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(27, 25, 'm', 192, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(28, 24, 'w', 192, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(29, 21, 'w', 192, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(30, 25, 'w', 192, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(31, 32, 'm', 193, 'GE ELECT IT 1', 'IT - 1A', 'CL-D', '', 12, '27'),
+(32, 40, 'w', 193, 'GE ELECT IT 1', 'IT - 1A', 'CL-D', '', 12, '27'),
+(33, 32, 'm', 191, 'GE ELECT IT 2', 'IT 2A - NS', 'CL-C', '', 12, '27'),
+(34, 40, 'w', 191, 'GE ELECT IT 2', 'IT 2A - NS', 'CL-C', '', 12, '27'),
+(35, 37, 'm', 194, 'GEC 3', 'IT - 1A', 'CL-E', '', 12, '27'),
+(36, 42, 'w', 194, 'GEC 3', 'IT - 1A', 'CL-E', '', 12, '27'),
+(37, 40, 'm', 194, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27'),
+(38, 29, 'w', 194, 'GE ELECT IT 1', 'IT - 1A', 'CL-A', '', 12, '27');
+
 -- --------------------------------------------------------
 
 --
@@ -293,7 +332,7 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`settings_id`, `term`, `sem`, `sy`, `status`) VALUES
-(12, 'Midterm', '1st', '2024-2025', 'active');
+(12, 'Midterm', '1st', '2017-2018', 'active');
 
 -- --------------------------------------------------------
 
@@ -315,10 +354,7 @@ CREATE TABLE `signatories` (
 INSERT INTO `signatories` (`sign_id`, `member_id`, `seq`, `set_by`) VALUES
 (3, 187, 2, 27),
 (4, 188, 4, 27),
-(5, 189, 1, 27),
-(6, 191, 2, 27),
-(7, 193, 1, 27),
-(8, 192, 4, 27);
+(5, 189, 1, 27);
 
 -- --------------------------------------------------------
 
@@ -386,9 +422,7 @@ INSERT INTO `subject` (`subject_id`, `subject_code`, `subject_title`, `member_id
 (51, 'IT 323', 'Capstone Project and Research 1', 27),
 (52, 'IT APPDEV 4', 'Game Development', 27),
 (53, 'IT APPDEV 5', 'Cloud Computing', 27),
-(54, 'IT GE ELEC 5', 'Multicultural Education', 27),
-(55, 'IT 412', 'Capstone Project and Research 2', 27),
-(56, 'IT ELECT 6', 'Leadership Management', 27);
+(54, 'IT GE ELEC 5', 'Multicultural Education', 27);
 
 -- --------------------------------------------------------
 
@@ -427,10 +461,16 @@ CREATE TABLE `time` (
 --
 
 INSERT INTO `time` (`time_id`, `time_start`, `time_end`, `days`) VALUES
-(8, '07:30:00', '10:30:00', 'mtwthf'),
-(23, '07:30:00', '08:30:00', 'mtwthf'),
-(22, '13:00:00', '14:30:00', 'mtwthf'),
-(21, '07:30:00', '09:30:00', 'mtwthf');
+(39, '15:30:00', '16:30:00', 'mtwthf'),
+(38, '14:30:00', '15:30:00', 'mtwthf'),
+(34, '09:30:00', '10:30:00', 'mtwthf'),
+(36, '10:30:00', '11:30:00', 'mtwthf'),
+(32, '07:30:00', '08:30:00', 'mtwthf'),
+(37, '13:30:00', '14:30:00', 'mtwthf'),
+(29, '08:30:00', '09:30:00', 'mtwthf'),
+(40, '07:30:00', '09:30:00', 'mtwthf'),
+(41, '09:30:00', '11:30:00', 'mtwthf'),
+(42, '13:30:00', '15:30:00', 'mtwthf');
 
 -- --------------------------------------------------------
 
@@ -563,7 +603,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cys`
 --
 ALTER TABLE `cys`
-  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `dept`
@@ -587,7 +627,7 @@ ALTER TABLE `exam_sched`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -599,7 +639,7 @@ ALTER TABLE `program`
 -- AUTO_INCREMENT for table `rank`
 --
 ALTER TABLE `rank`
-  MODIFY `rank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `rank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `room`
@@ -611,31 +651,31 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `salut`
 --
 ALTER TABLE `salut`
-  MODIFY `salut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `salut_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `signatories`
 --
 ALTER TABLE `signatories`
-  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `sy`
@@ -647,7 +687,7 @@ ALTER TABLE `sy`
 -- AUTO_INCREMENT for table `time`
 --
 ALTER TABLE `time`
-  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `user`

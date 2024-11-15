@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+session_start();
 if (empty($_SESSION['id'])):
     header('Location:../index.php');
 endif;
@@ -128,8 +129,18 @@ endif;
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                <!-- Redirect to home.php when Cancel is clicked -->
-                                                <a href="faculty_home.php" class="btn btn-secondary">Cancel</a>
+                                                <?php
+                                                // Check status from database
+                                                $id = $_SESSION['id'];
+                                                $query = mysqli_query($con, "SELECT status FROM member WHERE member_id='$id'") or die(mysqli_error($con));
+                                                $row = mysqli_fetch_array($query);
+
+                                                if ($row['status'] == 'admin') {
+                                                    echo '<a href="home.php" class="btn btn-secondary">Cancel</a>';
+                                                } else if ($row['status'] == 'user') {
+                                                    echo '<a href="faculty_home.php" class="btn btn-secondary">Cancel</a>';
+                                                }
+                                                ?>
                                             </div>
                                         </form>
                                     </div>
