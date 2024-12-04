@@ -56,7 +56,7 @@ endif;
               
     <?php
         include('../dist/includes/dbcon.php');
-        $query=mysqli_query($con,"select * from cys order by cys")or die(mysqli_error());
+        $query=mysqli_query($con,"select * from cys order by cys")or die(mysqli_error($con));
           
           while($row=mysqli_fetch_array($query)){
             $id=$row['cys_id'];
@@ -67,7 +67,7 @@ endif;
                  
                 <td><a id="click" href="class.php?id=<?php echo $id;?>&cys=<?php echo $cys;?>">
                 <i class="glyphicon glyphicon-edit text-blue"></i></a>
-                <a id="removeme" href="class_del.php?id=<?php echo $id;?>">
+                <a id="removeme" onclick="return('Are you sure you want to delete this data?')" href="class_del.php?id=<?php echo $id;?>">
                 <i class="glyphicon glyphicon-remove text-red"></i></a>
                 </td>
         

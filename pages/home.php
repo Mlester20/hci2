@@ -1,7 +1,7 @@
 <?php
-session_start();
-if (empty($_SESSION['id'])) {
-    header('Location:../index.php');
+    session_start();
+    if (empty($_SESSION['id'])) {
+        header('Location:../index.php');
     exit;
 }
 ?>
@@ -318,38 +318,7 @@ if (empty($_SESSION['id'])) {
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
     <!-- Custom scripts -->
-    <script type="text/javascript">
-        // Handle form submission via AJAX
-        $(document).on('submit', '#reg-form', function(e) {
-            e.preventDefault(); // Prevent default form submission
-            $.post('submit.php', $(this).serialize(), function(data) {
-                $(".result").html(data); // Display the response in the result div
-                $("#form1")[0].reset(); // Reset the form fields
-                $('input:checkbox').prop('checked', false); // Uncheck all checkboxes
-            });
-        });
-
-        // Uncheck all checkboxes when 'Uncheck All' button is clicked
-        $(".uncheck").click(function() {
-            $('input:checkbox').prop('checked', false);
-        });
-
-        // Toggle the next checkbox based on the current checkbox state
-        function toggleCheckbox(checkboxId, isChecked) {
-            const checkbox = document.getElementById(checkboxId);
-            if (checkbox) {
-                checkbox.disabled = isChecked; // Disable the next checkbox if current is checked
-                if (isChecked) {
-                    checkbox.checked = false; // Uncheck the next checkbox if current is checked
-                }
-            }
-        }
-
-        // Initialize Select2 Elements
-        $(function() {
-            $(".select2").select2();
-        });
-    </script>
+    <script src="./../control.js"></script>
 </body>
 
 </html>

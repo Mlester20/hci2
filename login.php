@@ -35,16 +35,11 @@ include('dist/includes/dbcon.php');
 				$_SESSION['name']=$name;	
 				$_SESSION['type']=$status;	
 					
-					if ($status=='admin')
-						{
-						
-							echo "<script type='text/javascript'>document.location='pages/home.php'</script>";
-						}
-					else
-					{
-
-							echo "<script type='text/javascript'>document.location='pages/faculty_home.php'</script>";
-						}
+				if ($status=='admin'){
+					echo "<script type='text/javascript'>document.location='pages/home.php'</script>";
+				}else{
+					echo "<script type='text/javascript'>document.location='pages/faculty_home.php'</script>";
+				}
 			}
 		}	 
 ?>
