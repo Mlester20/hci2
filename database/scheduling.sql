@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 08:15 AM
+-- Generation Time: Dec 09, 2024 at 11:35 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,6 +70,8 @@ CREATE TABLE `dept` (
 --
 
 INSERT INTO `dept` (`dept_id`, `dept_code`, `dept_name`) VALUES
+(13, 'Institute', 'SAA'),
+(12, 'Institute', 'CCJE'),
 (9, 'Institute ', 'IICT'),
 (11, 'Institute', 'CED');
 
@@ -92,7 +94,8 @@ INSERT INTO `designation` (`designation_id`, `designation_name`) VALUES
 (67, 'Faculty'),
 (66, 'Dean'),
 (68, 'Registrar'),
-(69, 'Campus Administrator');
+(69, 'Campus Administrator'),
+(70, 'OSAS');
 
 -- --------------------------------------------------------
 
@@ -154,7 +157,18 @@ INSERT INTO `member` (`member_id`, `member_last`, `member_first`, `member_rank`,
 (202, 'Marte', 'Yosef', 'Instructor II', 'Mr', 'Institute ', 67, '', 'yosef', 'marte', 'user'),
 (203, 'Dela Cruz', 'Michelle', 'Instructor III', 'Mrs', 'Institute ', 68, '', 'michelle', 'delacruz', 'admin'),
 (204, 'Bautista', 'Rosalyn', 'Campus Administrator', 'Dr', 'Institute ', 69, '', 'rosalyn', 'bautista', 'user'),
-(205, 'Cunanan', 'Janet', 'Professor II', 'Dr', 'Institute ', 67, '', 'janet', 'cunanan', 'user');
+(205, 'Cunanan', 'Janet', 'Professor II', 'Dr', 'Institute ', 67, '', 'janet', 'cunanan', 'user'),
+(206, 'Caliboso', 'Jane', 'Instructor I', 'Dr', 'Institute', 70, '', 'jane', 'caliboso', 'user'),
+(207, 'Natividad', 'Junesther', 'Instructor I', 'Mr', 'Institute ', 67, '', 'junesther', 'natividad', 'user'),
+(208, 'Pascual', 'Dexter', 'Instructor I', 'Mr', 'Institute ', 68, '', 'dexter', 'pascual', 'user'),
+(209, 'Atchuela', 'Nancy ', 'Instructor I', 'Mrs', 'Institute', 67, '', 'nancy', 'atchuela', 'user'),
+(210, 'De leon', 'Divina', 'Instructor I', 'Ms', 'Institute', 67, '', 'divina', 'deleon', 'user'),
+(211, 'Mipalar', 'Jonabel', 'Instructor II', 'Ms', 'Institute', 67, '', 'jonabel', 'mipalar', 'user'),
+(212, 'Pascua', 'Judith', 'Instructor I', 'Mrs', 'Institute', 67, '', 'judith', 'pascua', 'user'),
+(213, 'duque', 'vic berry', 'Instructor I', 'Mr', 'Institute ', 67, '', 'vicberry', 'duque', 'user'),
+(214, 'Bandonil', 'Clarissa', 'Instructor I', 'Mrs', 'Institute ', 67, '', 'clarissa', 'bandonil', 'user'),
+(215, 'Laurel', 'Jay', 'Instructor I', 'Mrs', 'Institute ', 67, '', 'jay', 'laurel', 'user'),
+(216, 'D jose', 'Rosedalyn', 'Instructor I', 'Mrs', 'Institute', 67, '', 'rosedalyn', 'djose', 'user');
 
 -- --------------------------------------------------------
 
@@ -609,13 +623,13 @@ ALTER TABLE `cys`
 -- AUTO_INCREMENT for table `dept`
 --
 ALTER TABLE `dept`
-  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
-  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `designation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `exam_sched`
@@ -627,7 +641,7 @@ ALTER TABLE `exam_sched`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -657,7 +671,7 @@ ALTER TABLE `salut`
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT for table `settings`
