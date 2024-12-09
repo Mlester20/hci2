@@ -3,15 +3,16 @@
 		width: 100%;
 		border-collapse: collapse;
 		font-family: Arial, sans-serif;
-		margin-top: 20px;
+		margin-top: 10px;
+		table-layout: fixed;
 	}
 
-	th,
-	td {
-		padding: 10px 15px;
+	th, td {
+		padding: 5px 5px;
 		text-align: center;
 		font-size: 14px;
 		border: 1px solid #ddd;
+		word-wrap: break-word;
 	}
 
 	th {
@@ -31,6 +32,27 @@
 	.first {
 		font-weight: bold;
 		text-align: left;
+		width: 20%;
+	}
+
+	.col-monday {
+		width: 15%;
+	}
+
+	.col-tuesday {
+		width: 25%; 
+	}
+
+	.col-wednesday {
+		width: 10%;
+	}
+
+	.col-thursday {
+		width: 20%;
+	}
+
+	.col-friday {
+		width: 10%;
 	}
 </style>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2024 at 05:33 AM
+-- Generation Time: Dec 09, 2024 at 08:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,7 @@ INSERT INTO `cys` (`cys_id`, `cys`) VALUES
 (6, 'IT 4A - WEB'),
 (5, 'IT 4B - NS'),
 (4, 'IT 4A - NS'),
+(24, 'IT 4B Web'),
 (8, 'IT 3B - WEB'),
 (9, 'IT - 1A'),
 (10, 'IT - 1B'),
@@ -151,7 +152,9 @@ INSERT INTO `member` (`member_id`, `member_last`, `member_first`, `member_rank`,
 (199, 'Tisado', 'Jay', 'Instructor I', 'Mr', 'Institute ', 67, '', 'jay', 'tisado', 'user'),
 (200, 'Quiming', 'Mac', 'Instructor II', 'Mr', 'Institute ', 67, '', 'mac', 'quiming', 'user'),
 (202, 'Marte', 'Yosef', 'Instructor II', 'Mr', 'Institute ', 67, '', 'yosef', 'marte', 'user'),
-(203, 'Dela Cruz', 'Michelle', 'Instructor III', 'Mrs', 'Institute ', 68, '', 'michelle', 'delacruz', 'admin');
+(203, 'Dela Cruz', 'Michelle', 'Instructor III', 'Mrs', 'Institute ', 68, '', 'michelle', 'delacruz', 'admin'),
+(204, 'Bautista', 'Rosalyn', 'Campus Administrator', 'Dr', 'Institute ', 69, '', 'rosalyn', 'bautista', 'user'),
+(205, 'Cunanan', 'Janet', 'Professor II', 'Dr', 'Institute ', 67, '', 'janet', 'cunanan', 'user');
 
 -- --------------------------------------------------------
 
@@ -282,6 +285,19 @@ CREATE TABLE `schedule` (
   `encoded_by` varchar(10) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`sched_id`, `time_id`, `day`, `member_id`, `subject_code`, `cys`, `room`, `remarks`, `settings_id`, `encoded_by`) VALUES
+(137, 43, 'm', 196, 'IT 411', 'IT 4B Web', 'D2', 'lecture', 13, '27'),
+(141, 59, 'm', 199, 'IT GE ELEC 4', 'IT 4B Web', 'D5', 'lecture', 13, '27'),
+(142, 57, 't', 27, 'IT 412', 'IT 4B Web', 'D5', 'lecture', 13, '27'),
+(144, 65, 'th', 202, 'IT 411', 'IT 4B Web', 'CL-C', 'computer_laboratory', 13, '27'),
+(145, 56, 'th', 205, 'IT 412', 'IT 4B Web', 'CL-E', 'lecture', 13, '27'),
+(146, 53, 't', 194, 'Elect 6', 'IT 4B Web', 'D5', 'lecture', 13, '27'),
+(147, 68, 'w', 194, 'Elect 6', 'IT 4B Web', 'D5', 'lecture', 13, '27');
+
 -- --------------------------------------------------------
 
 --
@@ -301,10 +317,8 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`settings_id`, `term`, `sem`, `sy`, `status`) VALUES
-(12, 'Midterm', '1st', '2017-2018', 'inactive'),
 (13, 'Midterm', '1st', '2024-2025', 'active'),
-(14, '', '2nd', '2024-2025', 'inactive'),
-(15, '', '1st', '2025-2026', 'inactive');
+(16, '', '2nd', '2025-2026', 'inactive');
 
 -- --------------------------------------------------------
 
@@ -328,7 +342,9 @@ INSERT INTO `signatories` (`sign_id`, `member_id`, `seq`, `set_by`) VALUES
 (4, 188, 4, 27),
 (5, 189, 1, 27),
 (6, 203, 1, 27),
-(7, 194, 2, 27);
+(7, 194, 2, 27),
+(9, 27, 4, 27),
+(10, 204, 4, 27);
 
 -- --------------------------------------------------------
 
@@ -396,7 +412,10 @@ INSERT INTO `subject` (`subject_id`, `subject_code`, `subject_title`, `member_id
 (51, 'IT 323', 'Capstone Project and Research 1', 27),
 (52, 'IT APPDEV 4', 'Game Development', 27),
 (53, 'IT APPDEV 5', 'Cloud Computing', 27),
-(54, 'IT GE ELEC 5', 'Multicultural Education', 27);
+(54, 'IT GE ELEC 5', 'Multicultural Education', 27),
+(55, 'IT 411', 'System Maintenance And Adminintration', 27),
+(56, 'IT 412', 'Capstone Project and Research 2', 27),
+(57, 'Elect 6', 'Leadership Management', 27);
 
 -- --------------------------------------------------------
 
@@ -436,16 +455,22 @@ CREATE TABLE `time` (
 --
 
 INSERT INTO `time` (`time_id`, `time_start`, `time_end`, `days`) VALUES
-(39, '15:30:00', '16:30:00', 'mtwthf'),
-(38, '14:30:00', '15:30:00', 'mtwthf'),
-(34, '09:30:00', '10:30:00', 'mtwthf'),
-(36, '10:30:00', '11:30:00', 'mtwthf'),
-(32, '07:30:00', '08:30:00', 'mtwthf'),
-(37, '13:30:00', '14:30:00', 'mtwthf'),
-(29, '08:30:00', '09:30:00', 'mtwthf'),
-(40, '07:30:00', '09:30:00', 'mtwthf'),
-(41, '09:30:00', '11:30:00', 'mtwthf'),
-(42, '13:30:00', '15:30:00', 'mtwthf');
+(60, '13:00:00', '14:30:00', 'mtwthf'),
+(58, '09:00:00', '10:30:00', 'mtwthf'),
+(59, '10:30:00', '12:00:00', 'mtwthf'),
+(43, '07:30:00', '09:30:00', 'mtwthf'),
+(54, '13:30:00', '15:30:00', 'mtwthf'),
+(55, '07:30:00', '10:30:00', 'mtwthf'),
+(56, '13:30:00', '16:30:00', 'mtwthf'),
+(53, '09:30:00', '11:30:00', 'mtwthf'),
+(57, '07:30:00', '09:00:00', 'mtwthf'),
+(68, '14:30:00', '16:30:00', 'mtwthf'),
+(62, '15:00:00', '16:30:00', 'mtwthf'),
+(63, '09:30:00', '12:30:00', 'mtwthf'),
+(64, '10:30:00', '12:30:00', 'mtwthf'),
+(65, '10:30:00', '13:30:00', 'mtwthf'),
+(67, '14:30:00', '16:00:00', 'mtwthf'),
+(69, '15:00:00', '17:00:00', 'mtwthf');
 
 -- --------------------------------------------------------
 
@@ -578,7 +603,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cys`
 --
 ALTER TABLE `cys`
-  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `dept`
@@ -602,7 +627,7 @@ ALTER TABLE `exam_sched`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `member_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=206;
 
 --
 -- AUTO_INCREMENT for table `program`
@@ -632,25 +657,25 @@ ALTER TABLE `salut`
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `sched_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `signatories`
 --
 ALTER TABLE `signatories`
-  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `sign_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `sy`
@@ -662,7 +687,7 @@ ALTER TABLE `sy`
 -- AUTO_INCREMENT for table `time`
 --
 ALTER TABLE `time`
-  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `time_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `user`
