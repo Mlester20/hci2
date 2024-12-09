@@ -34,7 +34,7 @@
 	}
 </style>
 
-<table style="width:100%;float:left">
+<table>
 	<thead>
 		<tr>
 			<th class="first">Time</th>
@@ -106,7 +106,6 @@
 					echo "<div class='show'>";
 					echo "<ul>
                                 <li class='options' style='display:$options'>
-                                    <span style='float:left;'><a href='sched_edit.php?id=$id1' class='edit' title='Edit'>Edit</a></span>
                                     <span class='action'><a href='#' id='$id1' class='delete' title='Delete'>Remove</a></span>
                                 </li>";
 					echo "<li class='showme'>{$row1['subject_code']}</li>";

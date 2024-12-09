@@ -16,13 +16,11 @@ endif;?>
     <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
     <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
 	<script src="../dist/js/jquery.min.js"></script>
  </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
-  <body class="hold-transition skin-yellow layout-top-nav" onload="myFunction()">
+  <body class="hold-transition skin-green layout-top-nav" onload="myFunction()">
     <div class="wrapper">
       <?php include('../dist/includes/header.php');?>
       <!-- Full Width Column -->
@@ -38,10 +36,6 @@ endif;?>
               <div class="box box-warning">
               <div style="text-align: center">
               		<h4>Print Class Schedule
-              		<a href="#searcht" data-target="#searcht" data-toggle="modal" class="dropdown-toggle btn btn-primary">
-                     
-                      Teacher				
-                    </a>
                    <a href="#searchclass" data-target="#searchclass" data-toggle="modal" class="dropdown-toggle btn btn-success">
                      
                       Class				
@@ -56,85 +50,67 @@ endif;?>
                <form method="post" id="reg-form">
                 <div class="box-body">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 100%;">
 							<table class="table table-bordered table-striped" style="margin-right:-10px">
 							<thead>
 							  <tr>
 								<th>Time</th>
 								<th>M</th>
+								<th>T</th>
 								<th>W</th>
+								<th>TH</th>
 								<th>F</th>
-								
 							  </tr>
 							</thead>
 							
 		<?php
 				include('../dist/includes/dbcon.php');
 				$sched_id=$_REQUEST['id'];
-				$query1=mysqli_query($con,"select * from schedule where sched_id='$sched_id'")or die(mysqli_error());
+				$query1=mysqli_query($con,"select * from schedule where sched_id='$sched_id'")or die(mysqli_error($con));
 						$row1=mysqli_fetch_array($query1);	
 							$time_id=$row1['time_id'];	
 							$day=$row1['day'];	
 							//$day=$row1['day'];	
 
-				$query=mysqli_query($con,"select * from time where days='mwf' order by time_start")or die(mysqli_error());
+				$query=mysqli_query($con,"select * from time where days='mtwthf' order by time_start")or die(mysqli_error($con));
 				
 				while($row=mysqli_fetch_array($query)){
 						$id=$row['time_id'];
 						$start=date("h:i a",strtotime($row['time_start']));
-						$end=date("h:i a",strtotime($row['time_end']));
-
-					
+						$end=date("h:i a",strtotime($row['time_end']));				
 		?>
-							  <tr >
+							  <tr>
 								<td><?php echo $start."-".$end;?></td>
-								<td><input type="checkbox" name="m[]" value="<?php echo $id;?>" style="width: 20px; height: 20px;"
-								<?php if(($id==$time_id) and ($day=='m')) echo "checked"; ?>>
+								<td>
+									<input type="checkbox" name="m[]" value="<?php echo $id;?>" 
+									style="width: 20px; height: 20px;"
+									<?php if(($id==$time_id) and ($day=='m')) echo "checked"; ?>>
 								</td>
-								<td><input type="checkbox" name="w[]" value="<?php echo $id;?>" style="width: 20px; height: 20px;"
-								<?php if(($id==$time_id) and ($day=='w')) echo "checked"; ?>></td>
-								<td><input type="checkbox" name="f[]" value="<?php echo $id;?>" style="width: 20px; height: 20px;"
-								<?php if(($id==$time_id) and ($day=='f')) echo "checked"; ?>></td>
-								
-							  </tr>
+								<td>
+									<input type="checkbox" name="t[]" value="<?php echo $id;?>" 
+									style="width: 20px; height: 20px;"
+									<?php if(($id==$time_id) and ($day=='t')) echo "checked"; ?>>
+								</td>
+								<td>
+									<input type="checkbox" name="w[]" value="<?php echo $id;?>" 
+									style="width: 20px; height: 20px;"
+									<?php if(($id==$time_id) and ($day=='w')) echo "checked"; ?>>
+								</td>
+								<td>
+									<input type="checkbox" name="th[]" value="<?php echo $id;?>" 
+									style="width: 20px; height: 20px;"
+									<?php if(($id==$time_id) and ($day=='th')) echo "checked"; ?>>
+								</td>
+								<td>
+									<input type="checkbox" name="f[]" value="<?php echo $id;?>" 
+									style="width: 20px; height: 20px;"
+									<?php if(($id==$time_id) and ($day=='f')) echo "checked"; ?>>
+								</td>
+							</tr>
 							
 		<?php }?>					  
 		</table>    
-		</div><!--col end -->
-		<div class="col-md-6">
-			<table class="table table-bordered table-striped">
-								<thead>
-								  <tr>
-									<th>Time</th>
-									<th>T</th>
-									<th>TH</th>
-									
-								  </tr>
-								</thead>
-								
-			<?php
-					include('../dist/includes/dbcon.php');
-					$query=mysqli_query($con,"select * from time where days='tth' order by time_start")or die(mysqli_error());
-						
-					while($row=mysqli_fetch_array($query)){
-							$id=$row['time_id'];
-							$start=date("h:i a",strtotime($row['time_start']));
-							$end=date("h:i a",strtotime($row['time_end']));
-			?>
-								  <tr >
-									<td><?php echo $start."-".$end;?></td>
-									<td><input type="checkbox" name="t[]" value="<?php echo $id;?>" style="width: 20px; height: 20px;"
-									<?php if(($id==$time_id) and ($day=='t')) echo "checked"; ?>></td>
-									<td><input type="checkbox" name="th[]" value="<?php echo $id;?>" style="width: 20px; height: 20px;"
-									<?php if(($id==$time_id) and ($day=='th')) echo "checked"; ?>></td>
-									
-								  </tr>
-								
-			<?php }?>					  
-			</table>  
-			<div class="result" id="form">
-					  </div>			
-         </div><!--col end-->           
+		</div><!--col end -->        
         </div><!--row end-->        
 					
 			
@@ -145,7 +121,7 @@ endif;?>
             <div class="col-md-3">
               <div class="box box-warning">
                <?php
-               	$query=mysqli_query($con,"select * from schedule natural join member where sched_id='$sched_id'")or die(mysqli_error());
+               	$query=mysqli_query($con,"select * from schedule natural join member where sched_id='$sched_id'")or die(mysqli_error($con));
 						$row=mysqli_fetch_array($query);
 				?>
                 <div class="box-body">
@@ -253,7 +229,7 @@ endif;?>
       <?php include('../dist/includes/footer.php');?>
     </div><!-- ./wrapper -->
 	
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 	
 		$(document).on('submit', '#reg-form', function()
 		 {  
@@ -267,12 +243,12 @@ endif;?>
 		  
 		
 		})
-</script>
-<script>
-$(".uncheck").click(function () {
-			$('input:checkbox').removeAttr('checked');
-});
-</script>
+	</script> -->
+	<script>
+		$(".uncheck").click(function () {
+					$('input:checkbox').removeAttr('checked');
+		});
+	</script>
 	
 	<script type="text/javascript" src="autosum.js"></script>
     <!-- jQuery 2.1.4 -->
@@ -291,6 +267,8 @@ $(".uncheck").click(function () {
     <script src="../dist/js/demo.js"></script>
     <script src="../plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+	  <script src="./../handleForm.js"></script>
+    <script src="./../control.js"></script>
     
     <script>
       $(function () {
@@ -369,125 +347,3 @@ $(".uncheck").click(function () {
     </script>
   </body>
 </html>
-<div id="searcht" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Search Faculty Schedule</h4>
-              </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="faculty_sched.php" target="_blank">
-                
-				<div class="form-group">
-					<label class="control-label col-lg-2" for="name">Faculty</label>
-					<div class="col-lg-10">
-					<select class="select2" name="faculty" style="width:90%!important"  required>
-								  <?php 
-								  include('../dist/includes/dbcon.php');
-									$query2=mysqli_query($con,"select * from member order by member_last")or die(mysqli_error($con));
-									  while($row=mysqli_fetch_array($query2)){
-								  ?>
-										<option value="<?php echo $row['member_id'];?>"><?php echo $row['member_last'].", ".$row['member_first'];?></option>
-								  <?php }
-									
-								  ?>
-								</select>
-					</div>
-				</div> 
-				
-				
-              </div><hr>
-              <div class="modal-footer">
-				<button type="submit" name="search" class="btn btn-primary">Display Schedule</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-			  </form>
-            </div>
-			
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal--> 
- 
- <div id="searchclass" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Search Class Schedule</h4>
-              </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="class_sched.php" target="_blank">
-                
-				<div class="form-group">
-					<label class="control-label col-lg-2" for="name">Class</label>
-					<div class="col-lg-10">
-					<select class="select2" name="class" style="width:90%!important" required>
-								  <?php 
-								  include('../dist/includes/dbcon.php');
-									$query2=mysqli_query($con,"select * from cys order by cys")or die(mysqli_error($con));
-									  while($row=mysqli_fetch_array($query2)){
-								  ?>
-										<option><?php echo $row['cys'];?></option>
-								  <?php }
-									
-								  ?>
-								</select>
-					</div>
-				</div> 
-				
-				
-              </div><hr>
-              <div class="modal-footer">
-				<button type="submit" name="search" class="btn btn-primary">Display Schedule</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-			  </form>
-            </div>
-			
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal--> 
- 
- <div id="searchroom" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	<div class="modal-dialog">
-	  <div class="modal-content" style="height:auto">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Search Room Schedule</h4>
-              </div>
-              <div class="modal-body">
-			  <form class="form-horizontal" method="post" action="room_sched.php" target="_blank">
-                
-				<div class="form-group">
-					<label class="control-label col-lg-2" for="name">Room</label>
-					<div class="col-lg-10">
-					<select class="select2" name="room" style="width:90%!important"  required>
-								  <?php 
-								  include('../dist/includes/dbcon.php');
-									$query2=mysqli_query($con,"select * from room order by room")or die(mysqli_error($con));
-									  while($row=mysqli_fetch_array($query2)){
-								  ?>
-										<option><?php echo $row['room'];?></option>
-								  <?php }
-									
-								  ?>
-								</select>
-					</div>
-				</div> 
-				
-				
-              </div><hr>
-              <div class="modal-footer">
-				<button type="submit" name="search" class="btn btn-primary">Display Schedule</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-			  </form>
-            </div>
-			
-        </div><!--end of modal-dialog-->
- </div>
- <!--end of modal--> 

@@ -102,7 +102,8 @@
                                                                 <td class="text-center">
                                                                     <input type="checkbox" id="check_f_<?php echo $id; ?>"
                                                                         name="f[]" value="<?php echo $id; ?>"
-                                                                        style="width: 20px; height: 20px;">
+                                                                        style="width: 20px; height: 20px;"
+                                                                        onchange="toggleCheckbox(null, this.checked)">
                                                                 </td>
                                                             </tr>
                                                         <?php } ?>
@@ -176,10 +177,18 @@
                                                 </div>
                                                 <!-- Remarks -->
                                                 <div class="form-group">
+                                                    <label for="type">Type (e.g. Lecture/Laboratory)</label><br>
+                                                    <select name="remarks" id="type" class="form-control">
+                                                        <option value="">Select Type</option>
+                                                        <option value="lecture">Lecture</option>
+                                                        <option value="computer_laboratory">Computer Laboratory</option>
+                                                    </select>
+                                                </div>
+                                                <!-- <div class="form-group">
                                                     <label for="remarks">Remarks</label><br>
                                                     <textarea name="remarks" id="remarks" cols="30" rows="3"
                                                         placeholder="Enclose remarks with parenthesis()"></textarea>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                         <!-- Form Buttons -->
@@ -319,6 +328,7 @@
     <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
     <!-- Custom scripts -->
     <script src="./../control.js"></script>
+    <script src="./../submit.js"></script>
 </body>
 
 </html>

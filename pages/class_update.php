@@ -8,7 +8,7 @@ include('../dist/includes/dbcon.php');
 	$id = $_POST['id'];
 	$class =$_POST['class'];
 	
-	mysqli_query($con,"update cys set cys='$class' where cys_id='$id'")or die(mysqli_error());
+	mysqli_query($con,"update cys set cys='$class' where cys_id='$id'")or die(mysqli_error($con));
 	echo "<script type='text/javascript'>alert('Successfully updated a class!');</script>";	
 	echo "<script>document.location='class.php'</script>";  
 	

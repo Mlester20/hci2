@@ -1,479 +1,166 @@
+<?php
+session_start();
+if (empty($_SESSION['id'])) {
+    header('Location: ../index.php');
+    exit();
+}
 
- <?php session_start();
-if(empty($_SESSION['id'])):
-header('Location:../index.php');
-endif;
-error_reporting(0);
-if($_POST)
-{
-include('../dist/includes/dbcon.php');
+if ($_POST) {
+    include('../dist/includes/dbcon.php');
 
-	$member = $_POST['teacher'];
-	$subject = $_POST['subject'];
-	$room = $_POST['room'];
-	$cys = $_POST['cys'];
-	$remarks = $_POST['remarks'];
-	
-	$m = $_POST['m'];
-	$w = $_POST['w'];
-	$f = $_POST['f'];
-	$t = $_POST['t'];
-	$th = $_POST['th'];
-	$id = $_POST['id'];
-	
-	$set_id=$_SESSION['settings'];
-	$program=$_SESSION['id'];
-					
-	//monday sched
-	foreach ($m as $daym){
-		//check conflict for member
-		$query_member=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where member_id='$member' and schedule.time_id='$daym' and day='m' and sched_id<>'$id'")or die(mysqli_error($con));
-			$row=mysqli_fetch_array($query_member);
-			$count_t=$row['count'];
-			$time1=date("h:i a",strtotime($row['time_start']))."-".date("h:i a",strtotime($row['time_end']));
-			$member1=$row['member_last'].", ".$row['member_first'];
-			
-			$error_t="<span class='text-danger'>
-			<table width='100%'>
-				<tr>	
-					<td>monday</td>
-					<td>$time1</td> 
-					<td>$member1</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-		
-		//check conflict for room
-		$query_room=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where room='$room' and schedule.time_id='$daym' and day='m' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowr=mysqli_fetch_array($query_room);
-			$count_r=$rowr['count'];
-			$timer=date("h:i a",strtotime($rowr['time_start']))."-".date("h:i a",strtotime($rowr['time_end']));
-			$roomr=$rowr['room'];
-			
-			$error_r="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>monday</td>
-					<td>$timer</td> 
-					<td>Room $roomr</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-			//check conflict for class
-		$query_class=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where cys='$cys' and schedule.time_id='$daym' and day='m' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowc=mysqli_fetch_array($query_class);
-			$count_c=$rowc['count'];
-			$cysc=$rowc['cys'];
-			$timec=date("h:i a",strtotime($rowc['time_start']))."-".date("h:i a",strtotime($rowc['time_end']));
-			
-			$error_c="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>monday</td>
-					<td>$timec</td> 
-					<td>$cysc</td>
-					<td class='text-danger'><b>Not Available</b>	</td>					
-				</tr>
-			</table></span>";	
-		
-				
-		$queryt=mysqli_query($con,"select * from member where member_id='$member'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($queryt);
-				$membert=$rowt['member_last'].", ".$rowt['member_first'];
-			
-		$querytime=mysqli_query($con,"select * from time where time_id='$daym'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($querytime);
-				$timet=date("h:i a",strtotime($rowt['time_start']))."-".date("h:i a",strtotime($rowt['time_end']));	
-		
-		
-		if (($count_t==0) and ($count_r==0) and ($count_c==0))
-		{
-			mysqli_query($con,"update schedule set time_id='$daym',day='m',subject_code='$subject',cys='$cys',room='$room',remarks='$remarks',member_id='$member' where sched_id='$id'")or die(mysqli_error($con));
+    // Sanitize input data
+    $sched_id = mysqli_real_escape_string($con, $_POST['id']);
+    $member = mysqli_real_escape_string($con, $_POST['teacher']);
+    $subject = mysqli_real_escape_string($con, $_POST['subject']);
+    $room = mysqli_real_escape_string($con, $_POST['room']);
+    $cys = mysqli_real_escape_string($con, $_POST['cys']);
+    $remarks = mysqli_real_escape_string($con, $_POST['remarks']);
 
-			/*mysqli_query($con,"INSERT INTO schedule(time_id,day,member_id,subject_code,cys,room,remarks,settings_id,encoded_by) 
-				VALUES('$daym','m','$member','$subject','$cys','$room','$remarks','$set_id','$program')")or die(mysqli_error());*/
-				
-			echo "<span class='text-success'>
-			<table width='100%'>
-				<tr>
-					<td>Monday</td>
-					<td>$timet</td> 
-					
-					<td>Success</td>					
-				</tr>
-			</table></span><br>";	
-		}
-					
-		else if ($count_t>0) echo $error_t."<br>";
-		else if ($count_r>0) echo $error_r."<br>";
-		else {echo $error_c."<br>";}	
-		
-		//echo "</table>";
-	}
-	//------------------------------------------------
-	//wednesday sched
-	foreach ($w as $daym){
-		//check conflict for member
-		$query_member=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where member_id='$member' and schedule.time_id='$daym' and day='w' and sched_id<>'$id'")or die(mysqli_error($con));
-			$row=mysqli_fetch_array($query_member);
-			$count_t=$row['count'];
-			$time1=date("h:i a",strtotime($row['time_start']))."-".date("h:i a",strtotime($row['time_end']));
-			$member1=$row['member_last'].", ".$row['member_first'];
-			
-			$error_t="<span class='text-danger'>
-			<table width='100%'>
-				<tr>	
-					<td>Wednesday</td>
-					<td>$time1</td> 
-					<td>$member1</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-		
-		//check conflict for room
-		$query_room=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where room='$room' and schedule.time_id='$daym' and day='w' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowr=mysqli_fetch_array($query_room);
-			$count_r=$rowr['count'];
-			$timer=date("h:i a",strtotime($rowr['time_start']))."-".date("h:i a",strtotime($rowr['time_end']));
-			$roomr=$rowr['room'];
-			
-			$error_r="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>wednesday</td>
-					<td>$timer</td> 
-					<td>Room $roomr</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-			//check conflict for class
-		$query_class=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where cys='$cys' and schedule.time_id='$daym' and day='w' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowc=mysqli_fetch_array($query_class);
-			$count_c=$rowc['count'];
-			$cysc=$rowc['cys'];
-			$timec=date("h:i a",strtotime($rowc['time_start']))."-".date("h:i a",strtotime($rowc['time_end']));
-			
-			$error_c="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>wednesday</td>
-					<td>$timec</td> 
-					<td>$cysc</td>
-					<td class='text-danger'><b>Not Available</b>	</td>					
-				</tr>
-			</table></span>";	
-		
-				
-		$queryt=mysqli_query($con,"select * from member where member_id='$member'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($queryt);
-				$membert=$rowt['member_last'].", ".$rowt['member_first'];
-			
-		$querytime=mysqli_query($con,"select * from time where time_id='$daym'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($querytime);
-				$timet=date("h:i a",strtotime($rowt['time_start']))."-".date("h:i a",strtotime($rowt['time_end']));	
-		
-		
-		if (($count_t==0) and ($count_r==0) and ($count_c==0))
-		{
-			mysqli_query($con,"update schedule set time_id='$daym',day='w',subject_code='$subject',cys='$cys',room='$room',remarks='$remarks',member_id='$member' where sched_id='$id'")or die(mysqli_error($con));
-				
-			echo "<span class='text-success'>
-			<table width='100%'>
-				<tr>
-					<td>wednesday</td>
-					<td>$timet</td> 
-					
-					<td>Success</td>					
-				</tr>
-			</table></span><br>";	
-		}
-					
-		else if ($count_t>0) echo $error_t."<br>";
-		else if ($count_r>0) echo $error_r."<br>";
-		else {echo $error_c."<br>";}	
-		
-		//echo "</table>";
-	}
-	
-	//-------------------------------------------------------------
-	//friday sched
-	foreach ($f as $daym){
-		//check conflict for member
-		$query_member=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where member_id='$member' and schedule.time_id='$daym' and day='f' and sched_id<>'$id'")or die(mysqli_error($con));
-			$row=mysqli_fetch_array($query_member);
-			$count_t=$row['count'];
-			$time1=date("h:i a",strtotime($row['time_start']))."-".date("h:i a",strtotime($row['time_end']));
-			$member1=$row['member_last'].", ".$row['member_first'];
-			
-			$error_t="<span class='text-danger'>
-			<table width='100%'>
-				<tr>	
-					<td>friday</td>
-					<td>$time1</td> 
-					<td>$member1</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-		
-		//check conflict for room
-		$query_room=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where room='$room' and schedule.time_id='$daym' and day='f' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowr=mysqli_fetch_array($query_room);
-			$count_r=$rowr['count'];
-			$timer=date("h:i a",strtotime($rowr['time_start']))."-".date("h:i a",strtotime($rowr['time_end']));
-			$roomr=$rowr['room'];
-			
-			$error_r="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>friday</td>
-					<td>$timer</td> 
-					<td>Room $roomr</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-			//check conflict for class
-		$query_class=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where cys='$cys' and schedule.time_id='$daym' and day='f' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowc=mysqli_fetch_array($query_class);
-			$count_c=$rowc['count'];
-			$cysc=$rowc['cys'];
-			$timec=date("h:i a",strtotime($rowc['time_start']))."-".date("h:i a",strtotime($rowc['time_end']));
-			
-			$error_c="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>friday</td>
-					<td>$timec</td> 
-					<td>$cysc</td>
-					<td class='text-danger'><b>Not Available</b>	</td>					
-				</tr>
-			</table></span>";	
-		
-				
-		$queryt=mysqli_query($con,"select * from member where member_id='$member'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($queryt);
-				$membert=$rowt['member_last'].", ".$rowt['member_first'];
-			
-		$querytime=mysqli_query($con,"select * from time where time_id='$daym'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($querytime);
-				$timet=date("h:i a",strtotime($rowt['time_start']))."-".date("h:i a",strtotime($rowt['time_end']));	
-		
-		
-		if (($count_t==0) and ($count_r==0) and ($count_c==0))
-		{
-			mysqli_query($con,"update schedule set time_id='$daym',day='f',subject_code='$subject',cys='$cys',room='$room',remarks='$remarks',member_id='$member' where sched_id='$id'")or die(mysqli_error($con));
-				
-			echo "<span class='text-success'>
-			<table width='100%'>
-				<tr>
-					<td>friday</td>
-					<td>$timet</td> 
-					
-					<td>Success</td>					
-				</tr>
-			</table></span><br>";	
-		}
-					
-		else if ($count_t>0) echo $error_t."<br>";
-		else if ($count_r>0) echo $error_r."<br>";
-		else {echo $error_c."<br>";}	
-		
-		//echo "</table>";
-	}
-	//------------------------------------------------
-	//tuesday sched
-	foreach ($t as $daym){
-		//check conflict for member
-		$query_member=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where member_id='$member' and schedule.time_id='$daym' and day='t' and sched_id<>'$id'")or die(mysqli_error($con));
-			$row=mysqli_fetch_array($query_member);
-			$count_t=$row['count'];
-			$time1=date("h:i a",strtotime($row['time_start']))."-".date("h:i a",strtotime($row['time_end']));
-			$member1=$row['member_last'].", ".$row['member_first'];
-			
-			$error_t="<span class='text-danger'>
-			<table width='100%'>
-				<tr>	
-					<td>tuesday</td>
-					<td>$time1</td> 
-					<td>$member1</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-		
-		//check conflict for room
-		$query_room=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where room='$room' and schedule.time_id='$daym' and day='t' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowr=mysqli_fetch_array($query_room);
-			$count_r=$rowr['count'];
-			$timer=date("h:i a",strtotime($rowr['time_start']))."-".date("h:i a",strtotime($rowr['time_end']));
-			$roomr=$rowr['room'];
-			
-			$error_r="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>tuesday</td>
-					<td>$timer</td> 
-					<td>Room $roomr</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-			//check conflict for class
-		$query_class=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where cys='$cys' and schedule.time_id='$daym' and day='t' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowc=mysqli_fetch_array($query_class);
-			$count_c=$rowc['count'];
-			$cysc=$rowc['cys'];
-			$timec=date("h:i a",strtotime($rowc['time_start']))."-".date("h:i a",strtotime($rowc['time_end']));
-			
-			$error_c="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>tuesday</td>
-					<td>$timec</td> 
-					<td>$cysc</td>
-					<td class='text-danger'><b>Not Available</b>	</td>					
-				</tr>
-			</table></span>";	
-		
-				
-		$queryt=mysqli_query($con,"select * from member where member_id='$member'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($queryt);
-				$membert=$rowt['member_last'].", ".$rowt['member_first'];
-			
-		$querytime=mysqli_query($con,"select * from time where time_id='$daym'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($querytime);
-				$timet=date("h:i a",strtotime($rowt['time_start']))."-".date("h:i a",strtotime($rowt['time_end']));	
-		
-		
-		if (($count_t==0) and ($count_r==0) and ($count_c==0))
-		{
-			mysqli_query($con,"update schedule set time_id='$daym',day='t',subject_code='$subject',cys='$cys',room='$room',remarks='$remarks',member_id='$member' where sched_id='$id'")or die(mysqli_error($con));
-				
-			echo "<span class='text-success'>
-			<table width='100%'>
-				<tr>
-					<td>tuesday</td>
-					<td>$timet</td> 
-					
-					<td>Success</td>					
-				</tr>
-			</table></span><br>";	
-		}
-					
-		else if ($count_t>0) echo $error_t."<br>";
-		else if ($count_r>0) echo $error_r."<br>";
-		else {echo $error_c."<br>";}	
-		
-		//echo "</table>";
-	}
-	
-	//--------------------------------------------------
-	//thursday sched
-	foreach ($th as $daym){
-		//check conflict for member
-		$query_member=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where member_id='$member' and schedule.time_id='$daym' and day='th' and sched_id<>'$id'")or die(mysqli_error($con));
-			$row=mysqli_fetch_array($query_member);
-			$count_t=$row['count'];
-			$time1=date("h:i a",strtotime($row['time_start']))."-".date("h:i a",strtotime($row['time_end']));
-			$member1=$row['member_last'].", ".$row['member_first'];
-			
-			$error_t="<span class='text-danger'>
-			<table width='100%'>
-				<tr>	
-					<td>thursday</td>
-					<td>$time1</td> 
-					<td>$member1</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-		
-		//check conflict for room
-		$query_room=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where room='$room' and schedule.time_id='$daym' and day='th' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowr=mysqli_fetch_array($query_room);
-			$count_r=$rowr['count'];
-			$timer=date("h:i a",strtotime($rowr['time_start']))."-".date("h:i a",strtotime($rowr['time_end']));
-			$roomr=$rowr['room'];
-			
-			$error_r="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>thursday</td>
-					<td>$timer</td> 
-					<td>Room $roomr</td>
-					<td class='text-danger'><b>Not Available</b></td>					
-				</tr>
-				</span>
-			</table>";
-			//check conflict for class
-		$query_class=mysqli_query($con,"select *,COUNT(*) as count from schedule 
-		natural join member natural join time where cys='$cys' and schedule.time_id='$daym' and day='th' and sched_id<>'$id'")or die(mysqli_error($con));
-			$rowc=mysqli_fetch_array($query_class);
-			$count_c=$rowc['count'];
-			$cysc=$rowc['cys'];
-			$timec=date("h:i a",strtotime($rowc['time_start']))."-".date("h:i a",strtotime($rowc['time_end']));
-			
-			$error_c="<span class='text-danger'>
-			<table width='100%'>
-				<tr>
-					<td>thursday</td>
-					<td>$timec</td> 
-					<td>$cysc</td>
-					<td class='text-danger'><b>Not Available</b>	</td>					
-				</tr>
-			</table></span>";	
-		
-				
-		$queryt=mysqli_query($con,"select * from member where member_id='$member'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($queryt);
-				$membert=$rowt['member_last'].", ".$rowt['member_first'];
-			
-		$querytime=mysqli_query($con,"select * from time where time_id='$daym'")or die(mysqli_error($con));
-				$rowt=mysqli_fetch_array($querytime);
-				$timet=date("h:i a",strtotime($rowt['time_start']))."-".date("h:i a",strtotime($rowt['time_end']));	
-		
-		
-		if (($count_t==0) and ($count_r==0) and ($count_c==0))
-		{
-			mysqli_query($con,"update schedule set time_id='$daym',day='th',subject_code='$subject',cys='$cys',room='$room',remarks='$remarks',member_id='$member' where sched_id='$id'")or die(mysqli_error($con));
-				
-			echo "<span class='text-success'>
-			<table width='100%'>
-				<tr>
-					<td>thursday</td>
-					<td>$timet</td> 
-					
-					<td>Success</td>					
-				</tr>
-			</table></span><br>";	
-		}
-					
-		else if ($count_t>0) echo $error_t."<br>";
-		else if ($count_r>0) echo $error_r."<br>";
-		else {echo $error_c."<br>";}	
-		
-		//echo "</table>";
-	}
-		
-}					  
-	
-?>
+    // Array of days for schedule times
+    $days = [
+        'm' => $_POST['m'] ?? [],
+        't' => $_POST['t'] ?? [],
+        'w' => $_POST['w'] ?? [],
+        'th' => $_POST['th'] ?? [],
+        'f' => $_POST['f'] ?? []
+    ];
+
+    // Prepare to track conflicts and successful updates
+    $conflicts = [];
+    $successful_updates = [];
+    $errors = [];
+
+    // Track if any day/time is selected
+    $time_selected = false;
+
+    // Loop through each day
+    foreach ($days as $dayCode => $dayTimes) {
+        // If no times selected for this day, skip
+        if (!is_array($dayTimes) || empty($dayTimes)) continue;
+
+        $time_selected = true;
+
+        foreach ($dayTimes as $timeId) {
+            // Escape timeId to prevent SQL injection
+            $timeId = mysqli_real_escape_string($con, $timeId);
+
+            // Comprehensive conflict check query
+            $conflict_query = "
+                SELECT 
+                    m.member_last,
+                    m.member_first,
+                    t.time_start,
+                    t.time_end,
+                    s.sched_id,
+                    'member' AS conflict_type
+                FROM 
+                    schedule s
+                JOIN 
+                    member m ON s.member_id = m.member_id
+                JOIN 
+                    time t ON s.time_id = t.time_id
+                WHERE 
+                    (s.member_id = '$member' OR s.room = '$room' OR s.cys = '$cys')
+                    AND s.day = '$dayCode'
+                    AND s.time_id = '$timeId'
+                    AND s.sched_id != '$sched_id'
+                
+                UNION
+                
+                SELECT 
+                    room AS member_last,
+                    '' AS member_first,
+                    t.time_start,
+                    t.time_end,
+                    s.sched_id,
+                    'room' AS conflict_type
+                FROM 
+                    schedule s
+                JOIN 
+                    time t ON s.time_id = t.time_id
+                WHERE 
+                    s.room = '$room'
+                    AND s.day = '$dayCode'
+                    AND s.time_id = '$timeId'
+                    AND s.sched_id != '$sched_id'
+                
+                UNION
+                
+                SELECT 
+                    cys AS member_last,
+                    '' AS member_first,
+                    t.time_start,
+                    t.time_end,
+                    s.sched_id,
+                    'class' AS conflict_type
+                FROM 
+                    schedule s
+                JOIN 
+                    time t ON s.time_id = t.time_id
+                WHERE 
+                    s.cys = '$cys'
+                    AND s.day = '$dayCode'
+                    AND s.time_id = '$timeId'
+                    AND s.sched_id != '$sched_id'
+            ";
+
+            $conflict_result = mysqli_query($con, $conflict_query);
+            
+            // Check if there are any conflicts
+            if (mysqli_num_rows($conflict_result) > 0) {
+                $conflict_details = [];
+                while ($conflict = mysqli_fetch_assoc($conflict_result)) {
+                    $conflict_details[] = [
+                        'day' => strtoupper($dayCode),
+                        'time' => date("h:i a", strtotime($conflict['time_start'])) . "-" . date("h:i a", strtotime($conflict['time_end'])),
+                        'conflicting_entity' => $conflict['member_last'] . 
+                            (!empty($conflict['member_first']) ? " " . $conflict['member_first'] : ''),
+                        'type' => $conflict['conflict_type']
+                    ];
+                }
+                
+                $conflicts[$dayCode][$timeId] = $conflict_details;
+                continue; // Skip update if conflicts exist
+            }
+
+            // If no conflicts, update the schedule
+            $update_query = "UPDATE schedule SET 
+                time_id = '$timeId', 
+                day = '$dayCode', 
+                member_id = '$member', 
+                subject_code = '$subject', 
+                cys = '$cys', 
+                room = '$room', 
+                remarks = '$remarks'
+                WHERE sched_id = '$sched_id'";
+
+            if (mysqli_query($con, $update_query)) {
+                $successful_updates[] = [
+                    'day' => strtoupper($dayCode),
+                    'time_id' => $timeId
+                ];
+            } else {
+                $errors[] = "Error updating record for " . strtoupper($dayCode) . ": " . mysqli_error($con);
+            }
+        }
+    }
+
+    // Check if no day/time was selected
+    if (!$time_selected) {
+        $errors[] = "No time slot selected for the schedule.";
+    }
+
+    // Prepare response
+    $response = [
+        'successful_updates' => $successful_updates,
+        'conflicts' => $conflicts,
+        'errors' => $errors
+    ];
+
+    // Send back JSON response
+    echo json_encode($response);
+    exit();
+} else {
+    echo json_encode(['error' => 'No data submitted.']);
+    exit();
+}
