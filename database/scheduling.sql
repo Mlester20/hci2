@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2024 at 11:35 AM
+-- Generation Time: Dec 09, 2024 at 02:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,6 +46,7 @@ INSERT INTO `cys` (`cys_id`, `cys`) VALUES
 (10, 'IT - 1B'),
 (12, 'IT 2A - WEB'),
 (13, 'IT 2B- WEB'),
+(25, 'IT2B-NS'),
 (15, 'IT 2A - NS'),
 (16, 'IT-1C'),
 (17, 'IT - 1D'),
@@ -617,7 +618,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cys`
 --
 ALTER TABLE `cys`
-  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `cys_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `dept`

@@ -8,7 +8,7 @@
 	}
 
 	th, td {
-		padding: 5px 5px;
+		padding: 2px 2px;
 		text-align: center;
 		font-size: 10px;
 		border: 1px solid #ddd;
@@ -54,6 +54,15 @@
 	.col-friday {
 		width: 10%;
 	}
+
+    @print{
+        @page: footer{
+            display: none
+        }
+        @page: header{
+            display: none
+        }
+    }
 </style>
 
 <table>
