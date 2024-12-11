@@ -53,9 +53,9 @@ endif;
                                                             <th>Last Name</th>
                                                             <th>First Name</th>
                                                             <th>Rank</th>
-                                                            <th>Department</th>
                                                             <th>Designation</th>
-                                                            <!-- <th>Username</th> -->
+                                                            <th>Username</th>
+                                                            <th>Password</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -70,9 +70,8 @@ endif;
                                                         $first = $row['member_first'];
                                                         $rank = $row['member_rank'];
                                                         $salut = $row['member_salut'];
-                                                        $dept = $row['dept_code'];
                                                         $designation = $row['designation_name'];
-                                                        
+                                                        $username = $row['username'];
                                                         $password = $row['password'];
 
                                                     ?>
@@ -81,8 +80,9 @@ endif;
                                                         <td><?php echo $last; ?></td>
                                                         <td><?php echo $first; ?></td>
                                                         <td><?php echo $rank; ?></td>
-                                                        <td><?php echo $dept; ?></td>
                                                         <td><?php echo $designation; ?></td>
+                                                        <td><?php echo $username; ?></td>
+                                                        <td><?php echo $password; ?></td>
                                                         <td>
                                                             <a id="click" href="teacher_edit.php?id=<?php echo $id; ?>">
                                                                 <i class="glyphicon glyphicon-edit text-blue"></i></a>

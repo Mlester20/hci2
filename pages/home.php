@@ -42,10 +42,10 @@
                                         class="dropdown-toggle btn btn-success">
                                         Class
                                     </a>
-                                    <a href="#searchroom" data-target="#searchroom" data-toggle="modal"
+                                    <!-- <a href="#searchroom" data-target="#searchroom" data-toggle="modal"
                                         class="dropdown-toggle btn btn-warning">
                                         Room
-                                    </a>
+                                    </a> -->
                                 </h4>
                                 <!-- <h4 class="flex text-center card-title">Create Class Schedule</h4> -->
                                 <form method="post" id="reg-form">
